@@ -85,7 +85,7 @@ public class MultiLineTableCellRenderer extends JTextArea
     //order to make room for the text.
     int cWidth = table.getTableHeader().getColumnModel().getColumn(column).getWidth();
     setSize(new Dimension(cWidth, 1000));
-    int prefH = getPreferredSize().height + 10;
+    int prefH = getPreferredSize().height + 30;
     while (rowColHeight.size() <= row) {
       rowColHeight.add(new ArrayList<Integer>(column));
     }

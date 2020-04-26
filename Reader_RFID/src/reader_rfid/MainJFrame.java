@@ -49,7 +49,7 @@ public class MainJFrame extends javax.swing.JFrame {
         setTitle("Giam Sat Thiet Bi Y Te");
         configTable();
         //ableData.
-        for(int y=0; y<10; y++){
+        for(int y=0; y<5; y++){
             setRowDataToTable(y, String.valueOf(y+1), "Máy siêu âm màu (01 máy)\n112233/logicE\nGE/Mỹ",
                            "15/06/2000;\n999.999.000;\nMediruop",
                            "Tot",
@@ -67,7 +67,7 @@ public class MainJFrame extends javax.swing.JFrame {
             // print first column value from selected row
             if(!event.getValueIsAdjusting()){
                 for(int i=0; i<8;i++)
-                System.out.println(jTableData.getValueAt(jTableData.getSelectedRow(), i).toString());
+                System.out.println(jTableData.getValueAt(jTableData.getSelectedRow(), i));
                 
             }
         }
@@ -88,6 +88,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jTableData = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -120,17 +122,27 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Sua");
+
+        jButton3.setText("Xoa");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -218,6 +230,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelTable;
     private javax.swing.JScrollPane jScrollPane1;
@@ -246,7 +260,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         dm.setDataVector(
                 new Object[][]{
-                    {}, {}, {}, {}
+                    {}
                 },
                 new Object[]{"STT",
                              "Tên thiết bị, số lượng\nSố seri/model\nHãng/nước sx",
