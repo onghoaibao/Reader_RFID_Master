@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -58,23 +59,26 @@ public class MainJFrame extends javax.swing.JFrame {
         jButtonChinhSua.setBackground(Color.green);
         jButtonThemMoi.setBackground(Color.green);
         jButtonXoa.setBackground(Color.green);
-        
+
         jLabelTitle.setText("Chương Trình Quản Lý Thiết Bị Y Tế");
         jLabelTitle.setFont(new Font("Times New Roman", Font.BOLD, 28));
 
         setTitle("Giam Sat Thiet Bi Y Te");
         configTable();
+        
+        Reader_RFID rFID = new Reader_RFID();
+        LoadDatatable(rFID.getListData());
         //ableData.
-        for (int y = 0; y < 10; y++) {
-            setRowDataToTable(y, String.valueOf(y + 1), "Máy siêu âm màu (01 máy)\n112233/logicE\nGE/Mỹ",
-                    "15/06/2000;\n999.999.000;\nMediruop",
-                    "Tot",
-                    "Nội tổng quát\n01/011/2020",
-                    "01/02/2020",
-                    "01/01/2020: Nội Tổng quát\n01/02/2020 trả\n15/02/2020:\nNội thần kinh mượn",
-                    "Nội thần kinh");
-            ii = y;
-        }
+//        for (int y = 0; y < 10; y++) {
+//            setRowDataToTable(y, String.valueOf(y + 1), "Máy siêu âm màu (01 máy)\n112233/logicE\nGE/Mỹ",
+//                    "15/06/2000;\n999.999.000;\nMediruop",
+//                    "Tot",
+//                    "Nội tổng quát\n01/011/2020",
+//                    "01/02/2020",
+//                    "01/01/2020: Nội Tổng quát\n01/02/2020 trả\n15/02/2020:\nNội thần kinh mượn",
+//                    "Nội thần kinh");
+//            ii = y;
+//        }
 
         System.out.println();
     }
@@ -220,7 +224,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButtonChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChinhSuaActionPerformed
         // TODO add your handling code here:
-
         int row = jTableData.getSelectedRow();
         int col = jTableData.getSelectedColumnCount();
         if (row != -1 && col != -1) {
@@ -318,7 +321,7 @@ public class MainJFrame extends javax.swing.JFrame {
             ((TableColumn) e.nextElement()).setHeaderRenderer(renderer);
         }
 
-        jTableData.getColumnModel().getColumn(0).setPreferredWidth(5);        
+        jTableData.getColumnModel().getColumn(0).setPreferredWidth(5);
         jTableData.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTableData.getColumnModel().getColumn(2).setPreferredWidth(100);
         jTableData.getColumnModel().getColumn(3).setPreferredWidth(90);
@@ -346,6 +349,17 @@ public class MainJFrame extends javax.swing.JFrame {
         jTableData.setValueAt(nt, row, 5);
         jTableData.setValueAt(lsdc, row, 6);
         jTableData.setValueAt(ht, row, 7);
+    }
+
+    private void LoadDatatable(List<Fields> listData) {
+        int i = 0;
+        
+        for (Fields  e : listData) {
+            setRowDataToTable(i, e.getField1(), e.getField2(),
+                    e.getField3(), e.getField4(), e.getField5(), e.getField6(),
+                    e.getField7(), e.getField8());
+            i++;
+        }
     }
 
     public void reloadJTable() {
