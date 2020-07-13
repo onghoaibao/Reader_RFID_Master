@@ -1,0 +1,134 @@
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe.config
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\Interop.Office.dll
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.ResolveComReference.cache
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.English.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.MainWindow.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.Properties.Resources.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.SimpChinese.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.GenerateResource.Cache
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.BathReadWrite.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.ImportForm.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS_中文 源文件\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.WriteTagDataFormat.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe.config
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\Interop.Office.dll
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.ResolveComReference.cache
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.BathReadWrite.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.English.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.ImportForm.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.MainWindow.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.Properties.Resources.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.SimpChinese.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.WriteTagDataFormat.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\3. 分立器件DEMO_CS\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.GenerateResource.Cache
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe.config
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\Interop.Office.dll
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.ResolveComReference.cache
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.BathReadWrite.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.English.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.ImportForm.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.MainWindow.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.Properties.Resources.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.SimpChinese.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.WriteTagDataFormat.resources
+F:\Project(sjf)\释放版（田工）--软件资料\分立器_CS 软件开发包\分立器_单线程_CS 软件开发包\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.GenerateResource.Cache
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe.config
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\Interop.Office.dll
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.ResolveComReference.cache
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.BathReadWrite.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.English.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.ImportForm.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.MainWindow.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.Properties.Resources.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.SimpChinese.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.WriteTagDataFormat.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.GenerateResource.Cache
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe.config
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\Interop.Office.dll
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.ResolveComReference.cache
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.BathReadWrite.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.English.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.ImportForm.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.MainWindow.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.Properties.Resources.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.SimpChinese.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.WriteTagDataFormat.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.GenerateResource.Cache
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe.config
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\Interop.Office.dll
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.ResolveComReference.cache
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.BathReadWrite.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.English.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.ImportForm.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.MainWindow.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.Properties.Resources.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.SimpChinese.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.WriteTagDataFormat.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\客户资料\客户定制软件\DisDemo_CS_CH(防拆)\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.GenerateResource.Cache
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe.config
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\Interop.Office.dll
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.ResolveComReference.cache
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.BathReadWrite.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.English.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.ImportForm.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.MainWindow.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.Properties.Resources.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.SimpChinese.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.WriteTagDataFormat.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.6.1软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.GenerateResource.Cache
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe.config
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\Interop.Office.dll
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.ResolveComReference.cache
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.pdb
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.BathReadWrite.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.English.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.ImportForm.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.MainWindow.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.Properties.Resources.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.SimpChinese.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.WriteTagDataFormat.resources
+F:\Project(sjf)\释放版（田工）--软件资料\R2K\分离器件C++_V2.7软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.GenerateResource.Cache
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe.config
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.ResolveComReference.cache
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.exe
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.pdb
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.exe
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\bin\Debug\DisDemo.pdb
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.BathReadWrite.resources
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.English.resources
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.ImportForm.resources
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.MainWindow.resources
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.Properties.Resources.resources
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.SimpChinese.resources
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.WriteTagDataFormat.resources
+D:\钉钉\分离器件_C++_V2.7_软件开发包\分离器件_C++_V2.7_软件开发包\分离器件C++_V2.7_软件开发包\SourceCode\DisDemo_CS_CH\DisDemo_CS_CH\DisDemo\obj\x86\Debug\DisDemo.csproj.GenerateResource.Cache

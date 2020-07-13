@@ -100,10 +100,10 @@ public class Reader_RFID {
             for (Object res : results_arr) {
                 c++;
                 JSONObject obj = (JSONObject) res;
-                Fields f = new Fields(obj.get("field1").toString(), obj.get("field1").toString(),
-                        obj.get("field1").toString(), obj.get("field1").toString(),
-                        obj.get("field1").toString(), obj.get("field1").toString(),
-                        obj.get("field1").toString(), obj.get("field1").toString());
+                Fields f = new Fields(obj.get("field1").toString(), obj.get("field2").toString(),
+                        obj.get("field3").toString(), obj.get("field4").toString(),
+                        obj.get("field5").toString(), obj.get("field6").toString(),
+                        obj.get("field7").toString(), obj.get("field8").toString());
 
                 lFields.add(f);
             }
