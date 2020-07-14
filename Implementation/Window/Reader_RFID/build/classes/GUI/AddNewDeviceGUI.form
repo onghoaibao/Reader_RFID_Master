@@ -33,14 +33,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
-                      <Component id="jButtonChapNhan" min="-2" pref="110" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
-                      <Component id="jButtonHuyBo" min="-2" pref="110" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="156" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel1" pref="931" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -53,10 +46,15 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jButtonChapNhan" min="-2" pref="110" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                              <Component id="jButtonHuyBo" min="-2" pref="110" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="jTextNgaySX" max="32767" attributes="0"/>
-                          <Component id="jText_Ten" max="32767" attributes="0"/>
                           <Component id="jTextTinhTrang" max="32767" attributes="0"/>
                           <Component id="jTextCode" max="32767" attributes="0"/>
+                          <Component id="jText_Ten" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -96,7 +94,7 @@
                   <Component id="jButtonChapNhan" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jButtonHuyBo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace pref="41" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

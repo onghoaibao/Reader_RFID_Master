@@ -6,6 +6,7 @@
 package reader_rfid;
 
 import DataBase.Fields;
+import GUI.MainJFrame;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +32,10 @@ import org.json.JSONObject;
 public class Reader_RFID {
 
     private static List<Fields> lFields = new ArrayList<>();
-
+    
+    //private final String 
+    
+    
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -107,41 +112,23 @@ public class Reader_RFID {
                         obj.get("field7").toString(), obj.get("field8").toString());
 
                 lFields.add(f);
-            }
+            }          
         } catch (IOException ex) {
             Logger.getLogger(Reader_RFID.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
+                        JOptionPane.showMessageDialog(null, "Thiết bị chưa kết nối mạng !!!",
+            "Error",JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Reader_RFID.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public int statusJson(){
+
+        return 1;
     }
     
     public List<Fields> getListData(){
         getContentJSON();
         return lFields;
     }
-
-//    public static void main(String[] args) {
-//        try {
-//            // TODO code application logic here
-//            sendGET("1qxzc", "2xzc", "3xzc", "4vb", "5hjm", "6fg", "7sdf", "8bnbn");
-//            //getContentJSON();
-//            
-//            for (Fields obj : lFields) {
-//                System.out.println("field1:" + obj.getField1()
-//                        + "  field2:" + obj.getField2()
-//                        + "  field3:" + obj.getField3()
-//                        + "  field4:" + obj.getField4()
-//                        + "  field5:" + obj.getField5()
-//                        + "  field6:" + obj.getField6()
-//                        + "  field7:" + obj.getField7()
-//                        + "  field8:" + obj.getField8());
-//
-//            }
-//        } catch (IOException ex) {
-//            Logger.getLogger(Reader_RFID.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (JSONException ex) {
-//            Logger.getLogger(Reader_RFID.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-
 }

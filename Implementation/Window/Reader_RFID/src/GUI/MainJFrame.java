@@ -22,6 +22,7 @@ import javax.swing.table.TableRowSorter;
 import DataBase.Fields;
 import MultiTable.MultiLineHeaderRenderer;
 import MultiTable.MultiLineTableCellRenderer;
+import javax.swing.JOptionPane;
 import reader_rfid.Reader_RFID;
 import reader_rfid.ThemThietBiMoi;
 
@@ -58,18 +59,18 @@ public class MainJFrame extends javax.swing.JFrame {
         configTable();
 
         Reader_RFID rFID = new Reader_RFID();
-        LoadDatatable(rFID.getListData());
+        //LoadDatatable(rFID.getListData());
         //ableData.
-//        for (int y = 0; y < 10; y++) {
-//            setRowDataToTable(y, String.valueOf(y + 1), "Máy siêu âm màu (01 máy)\n112233/logicE\nGE/Mỹ",
-//                    "15/06/2000;\n999.999.000;\nMediruop",
-//                    "Tot",
-//                    "Nội tổng quát\n01/011/2020",
-//                    "01/02/2020",
-//                    "01/01/2020: Nội Tổng quát\n01/02/2020 trả\n15/02/2020:\nNội thần kinh mượn",
-//                    "Nội thần kinh");
-//            ii = y;
-//        }
+        for (int y = 0; y < 10; y++) {
+            setRowDataToTable(y, String.valueOf(y + 1), "Máy siêu âm màu (01 máy)\n112233/logicE\nGE/Mỹ",
+                    "15/06/2000;\n999.999.000;\nMediruop",
+                    "Tot",
+                    "Nội tổng quát\n01/011/2020",
+                    "01/02/2020",
+                    "01/01/2020: Nội Tổng quát\n01/02/2020 trả\n15/02/2020:\nNội thần kinh mượn",
+                    "Nội thần kinh");
+            ii = y;
+        }
 
         System.out.println();
     }
@@ -367,7 +368,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     System.out.println("--TinhTrang: " + addNewDeviceGUI.getContent().getTinhTrang().toString());
                     System.out.println("--Code: " + addNewDeviceGUI.getContent().getCode().toString());
 
-                    setRowDataToTable(iRow, String.valueOf(iRow+1),
+                    setRowDataToTable(iRow, String.valueOf(iRow + 1),
                             addNewDeviceGUI.getContent().getName_seri().toString().replace("; ", "\n"),
                             addNewDeviceGUI.getContent().getNgaySX().toString().replace("; ", "\n"),
                             addNewDeviceGUI.getContent().getTinhTrang().toString().replace("; ", "\n"),
