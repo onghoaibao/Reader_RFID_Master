@@ -20,8 +20,12 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import DataBase.Fields;
+import DataBase.RequestGETDataBase;
 import MultiTable.MultiLineHeaderRenderer;
 import MultiTable.MultiLineTableCellRenderer;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import reader_rfid.Reader_RFID;
 import reader_rfid.ThemThietBiMoi;
@@ -216,7 +220,7 @@ public class MainJFrame extends javax.swing.JFrame {
         addNewDeviceGUI.setVisible(true);
         reloadJTable();
     }//GEN-LAST:event_jButtonThemMoiActionPerformed
-
+    int y = 0;
     private void jButtonChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChinhSuaActionPerformed
         // TODO add your handling code here:
         int row = jTableData.getSelectedRow();
@@ -227,6 +231,14 @@ public class MainJFrame extends javax.swing.JFrame {
                 s = s + (String.valueOf(jTableData.getValueAt(row, i)) + " - ");
             }
             System.out.print(s.replace("/n", ""));
+        }
+        RequestGETDataBase requestGETDataBase = new RequestGETDataBase();
+        try {
+            requestGETDataBase.executeGET(String.valueOf(y), "2", "3", "4",
+                                          "5", "6", "7", "8", "9");
+            y+=7;
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonChinhSuaActionPerformed
 
@@ -300,10 +312,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 new Object[][]{
                     {}
                 },
-                new Object[]{"STT",
+                new Object[]{"ID",
                     "Tên thiết bị;\nsố lượng;\nSố seri/model\nHãng/nước sx",
                     "Ngày sx;\nNguyên giá;\nCty nhập",
-                    "Tình trạng;\nhoạt động",
+                    "Tình trạng\nhoạt động",
                     "Đơn vị  mượn;\nNgày mượn",
                     "Ngày trả",
                     "Lịch sử di chuyển", "Hiện tại"});
