@@ -54,6 +54,7 @@ public class RequestGETDataBase {
                 + "ngayTra=" + ngayTra + "&"
                 + "lsdc=" + lsdc + "&"
                 + "hientai=" + hientai;
+        System.out.println("URL: " + url);
         return url;
     }   
 

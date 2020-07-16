@@ -22,9 +22,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SheetsQuickstart {
 
@@ -72,25 +75,52 @@ public class SheetsQuickstart {
 //                .build();
 //        
 //        
-//        int index = getPosMaThietBi("ABCDEF5");
-//
-//        updateInformationOnSheet(index + 15,"", "", "", "", "Mango", "Mango", "Mango", "Mango");
-//
-//        String range = "data!B1:B100";
+////        int index = getPosMaThietBi("ABCDEF5");
+////
+////        updateInformationOnSheet(index + 15,"", "", "", "", "Mango", "Mango", "Mango", "Mango");
+////
+//        String range = "account!A1:A10";
 //        ValueRange response = service.spreadsheets().values()
 //                .get(spreadsheetId, range)
 //                .execute();
 //
-////        List<List<Object>> values = response.getValues();
-////        if (values == null || values.isEmpty()) {
-////            System.out.println("No data found.");
-////        } else {
-////            System.out.println(" Data");
-////            for (List row : values) {
-////                System.out.println(row.get(0));
-////            }
-////        }
+//        List<List<Object>> values = response.getValues();
+//        if (values == null || values.isEmpty()) {
+//            System.out.println("No data found.");
+//        } else {
+//            System.out.println(" Data");
+//            for (List row : values) {
+//                System.out.println(row.get(0));
+//            }
+//        }
 //    }
+    
+    
+    public List<String> getListAccount(){
+        List<String> arrList = new ArrayList<>();
+        try {
+            String range = "account!A1:A10";
+            ValueRange response = service.spreadsheets().values()
+                    .get(spreadsheetId, range)
+                    .execute();
+            
+            List<List<Object>> values = response.getValues();
+            if (values == null || values.isEmpty()) {
+                System.out.println("No data found.");
+            } else {
+                System.out.println(" Data");
+                for (List row : values) {
+                    String ac = row.get(0).toString();
+                    System.out.println(ac);
+                    arrList.add(ac);
+                }
+            }
+        } catch (IOException ex) { 
+            Logger.getLogger(SheetsQuickstart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arrList;
+   }
+    
 
     public static void updateInformationOnSheet(int row,
             String C, String D, String E, String F,

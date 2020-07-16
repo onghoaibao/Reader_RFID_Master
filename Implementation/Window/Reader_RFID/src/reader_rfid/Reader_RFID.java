@@ -98,20 +98,18 @@ public class Reader_RFID {
         }
     }
 
-    private void getContentJSON() {
+    public void getContentJSON() {
+        List<String> arrList = new ArrayList<>();
         try {
-            JSONObject json = readJsonFromUrl("https://api.thingspeak.com/channels/1095127/feeds.json?api_key=D4170AJEVHIQ9F2N&results=3");
+            JSONObject json = readJsonFromUrl("https://api.thingspeak.com/channels/1100376/feeds.json?api_key=UQNY68M62985KQC6&results");
             JSONArray results_arr = json.getJSONArray("feeds");
             int c = 0;
             for (Object res : results_arr) {
                 c++;
                 JSONObject obj = (JSONObject) res;
-                Fields f = new Fields(obj.get("field1").toString(), obj.get("field2").toString(),
-                        obj.get("field3").toString(), obj.get("field4").toString(),
-                        obj.get("field5").toString(), obj.get("field6").toString(),
-                        obj.get("field7").toString(), obj.get("field8").toString());
-
-                lFields.add(f);
+                String ac = obj.getString("field1");
+                System.out.println("Account: " + ac);
+                arrList.add(ac);
             }          
         } catch (IOException ex) {
             Logger.getLogger(Reader_RFID.class.getName()).log(Level.SEVERE, null, ex);

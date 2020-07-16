@@ -23,6 +23,7 @@ import DataBase.Fields;
 import DataBase.RequestGETDataBase;
 import MultiTable.MultiLineHeaderRenderer;
 import MultiTable.MultiLineTableCellRenderer;
+import java.awt.event.WindowEvent;
 import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,34 +49,29 @@ public class MainJFrame extends javax.swing.JFrame {
     public static AddNewDeviceGUI addNewDeviceGUI = new AddNewDeviceGUI();
     int iRow = 0;
 
+    private final LoggingGUI loggingGUI = new LoggingGUI();
+
     public MainJFrame() {
+
         getContentPane().setBackground(Color.WHITE);
         scrollpane = new JScrollPane(jTableData);
         initComponents();
+
+        loggingGUI.setAlwaysOnTop(true);
+        loggingGUI.setVisible(true);
+        jPanel1Modify.setVisible(false);
+
         jButtonChinhSua.setBackground(Color.green);
         jButtonThemMoi.setBackground(Color.green);
         jButtonXoa.setBackground(Color.green);
 
         jLabelTitle.setText("Chương Trình Quản Lý Thiết Bị Y Tế");
+        jLabelTitle.setBackground(Color.green);
         jLabelTitle.setFont(new Font("Times New Roman", Font.BOLD, 32));
 
         setTitle("Giam Sat Thiet Bi Y Te");
         configTable();
-
-        Reader_RFID rFID = new Reader_RFID();
-        //LoadDatatable(rFID.getListData());
-        //ableData.
-        for (int y = 0; y < 10; y++) {
-            setRowDataToTable(y, String.valueOf(y + 1), "Máy siêu âm màu (01 máy)\n112233/logicE\nGE/Mỹ",
-                    "15/06/2000;\n999.999.000;\nMediruop",
-                    "Tot",
-                    "Nội tổng quát\n01/011/2020",
-                    "01/02/2020",
-                    "01/01/2020: Nội Tổng quát\n01/02/2020 trả\n15/02/2020:\nNội thần kinh mượn",
-                    "Nội thần kinh");
-            ii = y;
-        }
-
+        loadtable();
         System.out.println();
     }
 
@@ -87,11 +83,12 @@ public class MainJFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanelTable = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel1Modify = new javax.swing.JPanel();
         jButtonThemMoi = new javax.swing.JButton();
         jButtonChinhSua = new javax.swing.JButton();
         jButtonXoa = new javax.swing.JButton();
@@ -101,7 +98,7 @@ public class MainJFrame extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanelTable.setBackground(new java.awt.Color(255, 255, 255));
-        jPanelTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelTable.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jTableData.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTableData.setModel(new javax.swing.table.DefaultTableModel(
@@ -119,7 +116,9 @@ public class MainJFrame extends javax.swing.JFrame {
         jTableData.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jTableData);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1Modify.setBackground(new java.awt.Color(254, 254, 254));
+        jPanel1Modify.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel1Modify.setLayout(new java.awt.GridBagLayout());
 
         jButtonThemMoi.setBackground(new java.awt.Color(4, 174, 1));
         jButtonThemMoi.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
@@ -129,6 +128,14 @@ public class MainJFrame extends javax.swing.JFrame {
                 jButtonThemMoiActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 82;
+        gridBagConstraints.ipady = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(107, 1, 0, 1);
+        jPanel1Modify.add(jButtonThemMoi, gridBagConstraints);
 
         jButtonChinhSua.setBackground(new java.awt.Color(248, 249, 248));
         jButtonChinhSua.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
@@ -138,29 +145,25 @@ public class MainJFrame extends javax.swing.JFrame {
                 jButtonChinhSuaActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 123;
+        gridBagConstraints.ipady = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 1, 0, 1);
+        jPanel1Modify.add(jButtonChinhSua, gridBagConstraints);
 
         jButtonXoa.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jButtonXoa.setText("Xoa");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButtonThemMoi, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-            .addComponent(jButtonChinhSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButtonXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(jButtonThemMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonChinhSua, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jButtonXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 122;
+        gridBagConstraints.ipady = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 1, 202, 1);
+        jPanel1Modify.add(jButtonXoa, gridBagConstraints);
 
         javax.swing.GroupLayout jPanelTableLayout = new javax.swing.GroupLayout(jPanelTable);
         jPanelTable.setLayout(jPanelTableLayout);
@@ -168,9 +171,9 @@ public class MainJFrame extends javax.swing.JFrame {
             jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTableLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1Modify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanelTableLayout.setVerticalGroup(
@@ -178,12 +181,14 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTableLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel1Modify, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
+        jLabelTitle.setBackground(new java.awt.Color(82, 164, 45));
         jLabelTitle.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabelTitle.setForeground(new java.awt.Color(10, 0, 0));
         jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitle.setText("text");
 
@@ -234,9 +239,9 @@ public class MainJFrame extends javax.swing.JFrame {
         }
         RequestGETDataBase requestGETDataBase = new RequestGETDataBase();
         try {
-            requestGETDataBase.executeGET(String.valueOf(y), "2", "3", "4",
-                                          "5", "6", "7", "8", "9");
-            y+=7;
+            requestGETDataBase.executeGET(String.valueOf(y), "2", "3ax-xscas-dasd-sdas-dsd", "4",
+                    "5", "6", "7", "8", "9");
+            y += 7;
         } catch (MalformedURLException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -282,7 +287,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonThemMoi;
     private javax.swing.JButton jButtonXoa;
     private javax.swing.JLabel jLabelTitle;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel1Modify;
     private javax.swing.JPanel jPanelTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableData;
@@ -358,15 +363,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jTableData.setValueAt(ht, row, 7);
     }
 
-    private void LoadDatatable(List<Fields> listData) {
-        for (Fields e : listData) {
-            setRowDataToTable(iRow, String.valueOf(iRow + 1), e.getField1(),
-                    e.getField2(), e.getField3(), e.getField4(), e.getField5(),
-                    e.getField6(), e.getField7());
-            iRow++;
-        }
-    }
-
     public void reloadJTable() {
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(new Runnable() {
@@ -397,6 +393,46 @@ public class MainJFrame extends javax.swing.JFrame {
                 repaint();
             }
         }, 0, 500, TimeUnit.MILLISECONDS);
+    }
+
+    private void loadtable() {
+        ScheduledExecutorService service__ = Executors.newSingleThreadScheduledExecutor();
+        service__.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                if (loggingGUI.getStatus() == 1) {
+                    jPanel1Modify.setVisible(true);
+
+                    for (int y = 0; y < 10; y++) {
+                        setRowDataToTable(y, String.valueOf(y + 1), "Máy siêu âm màu (01 máy)\n112233/logicE\nGE/Mỹ",
+                                "15/06/2000;\n999.999.000;\nMediruop",
+                                "Tot",
+                                "Nội tổng quát\n01/011/2020",
+                                "01/02/2020",
+                                "01/01/2020: Nội Tổng quát\n01/02/2020 trả\n15/02/2020:\nNội thần kinh mượn",
+                                "Nội thần kinh");
+                        ii = y;
+                    }
+                    loggingGUI.dispose();
+                    service__.shutdown();
+                } else if (loggingGUI.getStatus() == 2) {
+                    for (int y = 0; y < 10; y++) {
+                        setRowDataToTable(y, String.valueOf(y + 1), "Máy siêu âm màu (01 máy)\n112233/logicE\nGE/Mỹ",
+                                "15/06/2000;\n999.999.000;\nMediruop",
+                                "Tot",
+                                "Nội tổng quát\n01/011/2020",
+                                "01/02/2020",
+                                "01/01/2020: Nội Tổng quát\n01/02/2020 trả\n15/02/2020:\nNội thần kinh mượn",
+                                "Nội thần kinh");
+                        ii = y;
+                    }
+                    loggingGUI.dispose();
+                    service__.shutdown();
+                } else if (loggingGUI.getStatus() == -1) {
+                    dispatchEvent(new WindowEvent(MainJFrame.this, WindowEvent.WINDOW_CLOSING));
+                }
+            }
+        }, 0, 200, TimeUnit.MILLISECONDS);
     }
 
 }
