@@ -3,6 +3,10 @@ package GUI;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JTextField;
 import reader_rfid.ThemThietBiMoi;
 
@@ -20,9 +24,10 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
 
     public AddNewDeviceGUI() {
         initComponents();
+        eventWindowClose();
         getContentPane().setBackground(new Color(45, 211, 50));
         eventButtonChapNhan();
-        eventButtonHuyBo();
+        eventButtonHuyBo();       
     }
 
     public void setContent(String name_seri, String ngaySX, String tinhTrang, String Code) {
@@ -31,8 +36,8 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
         a.setNgaySX(ngaySX);
         a.setTinhTrang(tinhTrang);
     }
-    
-    public void clearText(){
+
+    public void clearText() {
         jTextCode.setText("");
         jTextNgaySX.setText("");
         jTextTinhTrang.setText("");
@@ -73,7 +78,7 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 1, 1));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Nhap Thiet Bi Moi Vao Kho");
+        jLabel1.setText("Nhập Thiết Bị Mới Vào Kho");
         jLabel1.setToolTipText("");
         jLabel1.setAutoscrolls(true);
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -81,19 +86,19 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel2.setText("Ten thiet bi, so seri/model:");
+        jLabel2.setText("Tên Thiết Bị; Số seri/model:");
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel3.setText("Ngay sx; Nguyen gia; Cty Nhap:");
+        jLabel3.setText("Ngày SX; Nguyên giá; Cty Nhập:");
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel4.setText("Tinh trang hoat dong:");
+        jLabel4.setText("Tình trạng hoạt động");
 
         jButtonChapNhan.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jButtonChapNhan.setText("Chap nhan");
+        jButtonChapNhan.setText("Chấp nhận");
 
         jButtonHuyBo.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jButtonHuyBo.setText("Huy bo");
+        jButtonHuyBo.setText("Hủy bỏ");
         jButtonHuyBo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonHuyBoActionPerformed(evt);
@@ -101,7 +106,7 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel9.setText("Ma thiet bi:");
+        jLabel9.setText("Mã thiết bị");
 
         jText_Ten.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
@@ -153,29 +158,28 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jText_Ten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jText_Ten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextNgaySX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextCode, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButtonChapNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,6 +218,31 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
                 iStatus = -1;
                 System.out.println("Tao da click Huy Bo");
                 dispose();
+            }
+        });
+    }
+
+    private void eventWindowClose() {
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+                iStatus = -1;
+                System.out.println("Tao da click Huy Bo");
+                dispose();
+                //System.exit(0);
+
+            }
+        });
+    }
+
+    private void keyEnterPressed() {
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    System.out.println("Enter is pressed ");
+                }
             }
         });
     }

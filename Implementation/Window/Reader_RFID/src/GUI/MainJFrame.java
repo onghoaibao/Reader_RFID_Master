@@ -23,7 +23,12 @@ import DataBase.Fields;
 import DataBase.RequestGETDataBase;
 import MultiTable.MultiLineHeaderRenderer;
 import MultiTable.MultiLineTableCellRenderer;
+import java.awt.AWTEventMulticaster;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,7 +61,8 @@ public class MainJFrame extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
         scrollpane = new JScrollPane(jTableData);
         initComponents();
-
+        setExtendedState(this.MAXIMIZED_BOTH);
+        eventWindowClose();
         loggingGUI.setAlwaysOnTop(true);
         loggingGUI.setVisible(true);
         jPanel1Modify.setVisible(false);
@@ -65,14 +71,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jButtonThemMoi.setBackground(Color.green);
         jButtonXoa.setBackground(Color.green);
 
-        jLabelTitle.setText("Chương Trình Quản Lý Thiết Bị Y Tế");
-        jLabelTitle.setBackground(Color.green);
-        jLabelTitle.setFont(new Font("Times New Roman", Font.BOLD, 32));
-
         setTitle("Giam Sat Thiet Bi Y Te");
         configTable();
         loadtable();
         System.out.println();
+
     }
 
     /**
@@ -85,6 +88,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel1 = new javax.swing.JPanel();
         jPanelTable = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -92,7 +96,20 @@ public class MainJFrame extends javax.swing.JFrame {
         jButtonThemMoi = new javax.swing.JButton();
         jButtonChinhSua = new javax.swing.JButton();
         jButtonXoa = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jButtonReload = new javax.swing.JButton();
         jLabelTitle = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -165,13 +182,31 @@ public class MainJFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(18, 1, 202, 1);
         jPanel1Modify.add(jButtonXoa, gridBagConstraints);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        jButtonReload.setBackground(new java.awt.Color(51, 255, 0));
+        jButtonReload.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
+        jButtonReload.setText("Reload");
+        jButtonReload.setPreferredSize(new java.awt.Dimension(63, 12));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 207;
+        gridBagConstraints.ipady = 24;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 315, 19, 313);
+        jPanel2.add(jButtonReload, gridBagConstraints);
+
         javax.swing.GroupLayout jPanelTableLayout = new javax.swing.GroupLayout(jPanelTable);
         jPanelTable.setLayout(jPanelTableLayout);
         jPanelTableLayout.setHorizontalGroup(
             jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelTableLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTableLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
+                .addGroup(jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1Modify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -183,14 +218,16 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addComponent(jPanel1Modify, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jLabelTitle.setBackground(new java.awt.Color(82, 164, 45));
-        jLabelTitle.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jLabelTitle.setForeground(new java.awt.Color(10, 0, 0));
+        jLabelTitle.setBackground(new java.awt.Color(0, 204, 102));
+        jLabelTitle.setFont(new java.awt.Font("Monospaced", 1, 36)); // NOI18N
         jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitle.setText("text");
+        jLabelTitle.setText("Chương Trình Quản Lí Thiết Bị Y Tế");
+        jLabelTitle.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -284,10 +321,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonChinhSua;
+    private javax.swing.JButton jButtonReload;
     private javax.swing.JButton jButtonThemMoi;
     private javax.swing.JButton jButtonXoa;
     private javax.swing.JLabel jLabelTitle;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel1Modify;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableData;
@@ -433,6 +473,29 @@ public class MainJFrame extends javax.swing.JFrame {
                 }
             }
         }, 0, 200, TimeUnit.MILLISECONDS);
+    }
+
+    private void eventWindowClose() {
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+                System.out.print("Da Dong");
+                System.exit(0);
+
+            }
+        });
+    }
+
+    private void keyEnterPressed() {
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    System.out.println("Enter is pressed ");
+                }
+            }
+        });
     }
 
 }

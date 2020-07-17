@@ -6,6 +6,11 @@
 package GUI;
 
 import DataBase.SheetsQuickstart;
+import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -21,19 +26,27 @@ import reader_rfid.Reader_RFID;
  */
 public class LoggingGUI extends javax.swing.JFrame {
 
-    
     //private MainJFrame mainJFrame = new MainJFrame();
     /**
      * Creates new form LoggingGUI
      */
-    private int isStatus = 0; 
+    private int isStatus = 0;
     private SheetsQuickstart quickstart;
     private List<String> arrList = new ArrayList<>();
+
+    private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private int width = this.getWidth() / 2 - 100;
+    private int height = this.getHeight() / 2 - 200;
+
     public LoggingGUI() {
         try {
             quickstart = new SheetsQuickstart();
             arrList = quickstart.getListAccount();
             initComponents();
+            setLocation(screenWidth / 3, screenHeight / 3);
+            eventWindowClose();
+            EventEnterPressed();
         } catch (GeneralSecurityException ex) {
             Logger.getLogger(LoggingGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -55,28 +68,29 @@ public class LoggingGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField1NguoiDung = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2MatKhau = new javax.swing.JTextField();
         jButtonTruyCap = new javax.swing.JButton();
         jButtonHuyBo = new javax.swing.JButton();
         jButton1ReadOnly = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Monospaced", 0, 24)); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(0, 204, 0));
+
+        jLabel1.setFont(new java.awt.Font("Monospaced", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Đăng Nhập");
 
-        jLabel2.setFont(new java.awt.Font("Monospaced", 0, 15)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         jLabel2.setText("Người dùng");
 
-        jTextField1NguoiDung.setFont(new java.awt.Font("Monospaced", 0, 15)); // NOI18N
+        jTextField1NguoiDung.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Monospaced", 0, 15)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         jLabel3.setText("Mật khẩu");
 
-        jTextField2MatKhau.setFont(new java.awt.Font("Monospaced", 0, 15)); // NOI18N
-
-        jButtonTruyCap.setFont(new java.awt.Font("Monospaced", 0, 15)); // NOI18N
+        jButtonTruyCap.setFont(new java.awt.Font("Monospaced", 1, 15)); // NOI18N
         jButtonTruyCap.setText("Truy cập");
         jButtonTruyCap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +98,7 @@ public class LoggingGUI extends javax.swing.JFrame {
             }
         });
 
-        jButtonHuyBo.setFont(new java.awt.Font("Monospaced", 0, 15)); // NOI18N
+        jButtonHuyBo.setFont(new java.awt.Font("Monospaced", 1, 15)); // NOI18N
         jButtonHuyBo.setText("Hủy bỏ");
         jButtonHuyBo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,11 +106,18 @@ public class LoggingGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton1ReadOnly.setFont(new java.awt.Font("Monospaced", 0, 15)); // NOI18N
+        jButton1ReadOnly.setFont(new java.awt.Font("Monospaced", 1, 15)); // NOI18N
         jButton1ReadOnly.setText("Read Only");
         jButton1ReadOnly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ReadOnlyActionPerformed(evt);
+            }
+        });
+
+        jPasswordField1.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
             }
         });
 
@@ -106,7 +127,7 @@ public class LoggingGUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -116,14 +137,15 @@ public class LoggingGUI extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonTruyCap)
                         .addGap(36, 36, 36)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1ReadOnly)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(35, 35, 35)
                         .addComponent(jButtonHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField1NguoiDung)
-                    .addComponent(jTextField2MatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextField1NguoiDung, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)))
+                .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,20 +153,18 @@ public class LoggingGUI extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1NguoiDung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(jTextField2MatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel3)))
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField1NguoiDung, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel3)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButtonHuyBo)
                     .addComponent(jButtonTruyCap)
                     .addComponent(jButton1ReadOnly))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -160,7 +180,8 @@ public class LoggingGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -168,31 +189,66 @@ public class LoggingGUI extends javax.swing.JFrame {
 
     private void jButtonTruyCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTruyCapActionPerformed
         // TODO add your handling code here:         
-        if(jTextField1NguoiDung.getText().contains("admin") && 
-           arrList.contains(jTextField2MatKhau.getText())){
+        if (jTextField1NguoiDung.getText().contains("admin")
+                && arrList.contains(jPasswordField1.getText())) {
             System.out.println("Success loggin");
             isStatus = 1;
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"Người dùng hoặc mật khẩu không chính xác","Error", JOptionPane.ERROR_MESSAGE);  
+        } else {
+            JOptionPane.showMessageDialog(this, "Người dùng hoặc mật khẩu không chính xác", "Error", JOptionPane.ERROR_MESSAGE);
             isStatus = 0;
         }
     }//GEN-LAST:event_jButtonTruyCapActionPerformed
 
     private void jButtonHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHuyBoActionPerformed
-      
+
         this.isStatus = -1;       // TODO add your handling code here:
     }//GEN-LAST:event_jButtonHuyBoActionPerformed
 
     private void jButton1ReadOnlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ReadOnlyActionPerformed
         // TODO add your handling code here:
-        
+
         this.isStatus = 2;
     }//GEN-LAST:event_jButton1ReadOnlyActionPerformed
-    
-    public int getStatus(){
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    public int getStatus() {
         return this.isStatus;
     }
+
+    private void eventWindowClose() {
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+                System.out.print("Da Dong");
+                System.exit(0);
+
+            }
+        });
+    }
+
+    private void EventEnterPressed() {
+        jPasswordField1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    System.out.println("Enter is pressed ");
+                    if (jTextField1NguoiDung.getText().contains("admin")
+                            && arrList.contains(jPasswordField1.getText())) {
+                        System.out.println("Success loggin");
+                        isStatus = 1;
+                    } else {
+                        JOptionPane.showMessageDialog(jPasswordField1, "Người dùng hoặc mật khẩu không chính xác", "Error", JOptionPane.ERROR_MESSAGE);
+                        isStatus = 0;
+                    }
+                }
+            }
+        });
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -236,7 +292,7 @@ public class LoggingGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1NguoiDung;
-    private javax.swing.JTextField jTextField2MatKhau;
     // End of variables declaration//GEN-END:variables
 }
