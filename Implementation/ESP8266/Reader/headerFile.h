@@ -3,12 +3,15 @@
 
 #include "Arduino.h"
 #include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
+//#include <ESP8266HTTPClient.h>
 #include <ESP8266WebServer.h>
 #include <FS.h>
 #include <EEPROM.h>
 #include <SoftwareSerial.h>
-#include <ThingSpeak.h>
+#include <WiFiClientSecure.h>
+
+// Init server and client
+ESP8266WebServer sv(9090);
 
 #define SIZE 60
 #define SIZE_SSID 30
@@ -30,6 +33,9 @@ typedef struct Nodes
    String sNodes_Data;
    struct Nodes *next;
 } Node;
+
+Node* head_data = NULL;
+
 void append(Node** head, String sData);
 void deleteList();
 bool isElementInStruct(Node* head_ref, String str);
@@ -53,4 +59,10 @@ void clearEEPROM(int _address, int _size);
 String readEEPROM(int _address, int _size);
 void writeEEPROM(String str, int _address, int _SIZE_);
 
+
+//Google Sheet
+String getURL(String maThietBi, String properties_name, String properties_sx,
+              String trangthai, String dvMuon, String ngayTra, String lsdc, String hientai);
+String getStatusMaThietBi(String maThietbi);
+void client_Sendata(String maThietbi, String pos);
 #endif

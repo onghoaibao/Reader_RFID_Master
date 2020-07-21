@@ -1,6 +1,6 @@
 #include "headerFile.h"
 
-SoftwareSerial readerSerial(D3, D2); // RX, TX
+SoftwareSerial readerSerial(D2, D3); // RX, TX
 String dataReader = "";
 long timeout = 0;
 bool st = false;
@@ -10,25 +10,28 @@ void setup() {
   Serial.begin(115200);
   SPIFFS.begin();
   readerSerial.begin(115200);
-  pinMode(D3, INPUT);
-  pinMode(D2, OUTPUT);
-  Serial.println(); 
+  pinMode(D2, INPUT);
+  pinMode(D3, OUTPUT);
+  Serial.println();
   setupWiFi();
   Serial.println("\n------ Hello ------");
 }
+
+int sStatus = 1;
 
 void loop() {
   // put your main code here, to run repeatedly:
   handleClientServer();
   while (readerSerial.available() > 0) {
-    if (dataReader.length() <= 28){
-        char c = readerSerial.read();
-        dataReader += hexToASCII(c);
+    if (dataReader.length() <= 28) {
+      char c = readerSerial.read();
+      dataReader += hexToASCII(c);
     }
-    else{
-      //Serial.println("Data Reader: " + dataReader + "  len: " + String(dataReader.length()));
-      char c = readerSerial.read(); 
+    else {
+      Serial.println("Data Reader 1: " + dataReader + "  len: " + String(dataReader.length()));
+      char c = readerSerial.read();
     }
+    timeout = 0;
   }
 
   delay(1);
@@ -36,22 +39,39 @@ void loop() {
   if (dataReader.length() == 30 && dataReader != "") {
     dataReader = dataReader.substring(6, dataReader.length());
     appendWithoutRepeat(dataReader);
-    displayStruct();
-    //Serial.println("Data Reader: " + dataReader);
-    if(st){
+    //displayStruct();
+    if (st) {
       st = false;
       timeout = 0;
-      //ThingSpeak.setField(1, dataReader);
-      //client_Sendata();
     }
     dataReader = "";
+    timeout = 0;
   }
-  if(timeout == 5000){
-    Serial.println("Before del: " );
-    displayStruct();
+  if (timeout == 5000) {
+    Node* head_data_temp = head_data;
+    while (head_data_temp != NULL) {
+      String data = head_data_temp->sNodes_Data;
+       //getStatusMaThietBi(data);
+      Serial.println("sStatus: " + sStatus);    
+      if(sStatus == 1){
+        client_Sendata(data, "true");
+        sStatus = 0;
+      }
+      else{
+        client_Sendata(data, "false");
+        sStatus = 1;
+      }
+      Serial.println("data send: " + data);
+      head_data_temp = head_data_temp->next;
+      delay(2000);
+    }
+    
+    //Serial.println("Before del: " );
+    
+    //displayStruct();
     deleteList();
-    Serial.println("After del: " );
-    displayStruct();
+    //Serial.println("After del: " );
+    //displayStruct();
     st = true;
     serialFlush();
     timeout = 0;

@@ -1,29 +1,34 @@
 #include "headerFile.h"
 
+// declare variables for the google sheet
+const char* NAME_WIFI_ESP8266 = "ESP_Manage";
+const char* PASS_WIFI_ESP8266  = "123456789";
+
+
+
+String url = "/macros/s/AKfycbyv6koMALyPSHIlVG8pp0ysDgmIaA-csMx4bB05utsQZXlJKN0/exec?tag=ohbao&value=1233";
+
 //Wifi
 String ssid =  " BoBa2_4GHz";
 String pass =  "Thang06@";
 
 // Database
-const char *server = "api.thingspeak.com";
-unsigned long myChannelNumber = 1034449;
-const char * myWriteAPIKey = "F1634MJNAV9SYAEP";
+//const char *server = "api.thingspeak.com";
+//unsigned long myChannelNumber = 1034449;
+//const char * myWriteAPIKey = "F1634MJNAV9SYAEP";
 
 String bLogin = "";
+const char* __host__ = "script.google.com";
+const int __httpsPort__ = 443; //the https port is same
 
-// Init server and client
-ESP8266WebServer sv(9090);
-WiFiClient client;
 
 void setupWiFi() {
-
   read200Line();
-  
   Serial.println("Connecting to ");
   Serial.println(ssid);
 
-  //  String _ssid_ = getSSID_WIFI();
-  //  String _pass_ = getPASS_WIFI();
+  String _ssid_ = getSSID_WIFI();
+  String _pass_ = getPASS_WIFI();
 
   WiFi.mode(WIFI_AP_STA);
   WiFi.softAP(NAME_WIFI, PASS_WFI);
@@ -88,9 +93,9 @@ void setupWiFi() {
     }
     delay(100);
     if (bLogin == "1") {
-//      String sBetween =  scanWifi();
+      //      String sBetween =  scanWifi();
       String sSetup = getStringFile("setupWifi.html");
-//      sSetup.replace("[###]", sBetween);
+      //      sSetup.replace("[###]", sBetween);
       sv.send(200, "text/html", sSetup);
     }
     else{
@@ -137,17 +142,64 @@ void handleClientServer() {
   sv.handleClient();
 }
 
-void client_Sendata() {
-  ////  num += 1;
-  //  ThingSpeak.setField(iField, sData);
-  //  ThingSpeak.setField(iField, sData);
-  ////  ThingSpeak.setStatus("ABCDE");
-  int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
-  if (x == 200) {
-    Serial.println("Channel update successful.");
+int t = 5;
+void client_Sendata(String maThietbi, String pos) {
+  WiFiClientSecure client;
+  client.setInsecure();
+  if (!client.connect(__host__, __httpsPort__))
+  {
+    Serial.println("connection failed");
+    client.setInsecure();
+    return;
   }
-  else {
-    Serial.println("Problem updating channel. HTTP error code " + String(x));
+  String url = "/macros/s/AKfycbxsMad8bqrkqXUkajFobCX3C9-BXrgkPXDoE1QJqN3tprFn7SIo/exec?maThietBi=" + maThietbi + "&vitri=" + pos + String(t);
+  t+4;
+  client.print(String("GET ") + url + " HTTP/1.1\r\n" +
+               "Host: " + __host__ + "\r\n" +
+               "Connection: close\r\n\r\n");
+  Serial.print("Requesting URL: ");
+  Serial.println(url);
+  delay(500);
+  String section = "header";
+  while (client.available())
+  {
+    String line = client.readStringUntil('\r');
+    Serial.print(line);
   }
-  delay(30000);
+  Serial.println();
+  Serial.println("closing connection");
+}
+
+String getStatusMaThietBi(String maThietbi) {
+  WiFiClientSecure client;
+  client.setInsecure();
+  if (!client.connect(__host__, __httpsPort__))
+  {
+    Serial.println("connection failed");
+    client.setInsecure();
+    return "connection failed";
+  }
+  String url = "/macros/s/AKfycbxsMad8bqrkqXUkajFobCX3C9-BXrgkPXDoE1QJqN3tprFn7SIo/exec?maThietBi=" + maThietbi;
+
+  client.print(String("GET ") + url + " HTTP/1.1\r\n" +
+               "Host: " + __host__ + "\r\n" +
+               "Connection: close\r\n\r\n");
+  Serial.print("Requesting URL: ");
+  Serial.println(url);
+  delay(500);
+  String section = "header";
+  String sOut = "";
+  long t = 0;
+  while (client.available()){
+    sOut = client.readStringUntil('\r');
+    Serial.print(sOut);
+    t++;
+    delay(1);
+    if (t >= 2000) {
+      break;
+    }
+  }
+  Serial.println();
+  Serial.println("closing connection");
+  return sOut;
 }

@@ -1,15 +1,18 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
 
-const char* NAME_WIFI_ESP8266 = "ESP_Manager";
+const char* NAME_WIFI_ESP8266 = "ESP_Manage";
 const char* PASS_WIFI_ESP8266  = "123456789";
 
-
-const char* host = "script.google.com";
+const String host = "script.google.com";
 const int httpsPort = 443; //the https port is same
 
-const char *ssid = "ohbao"; 
-const char *password = "123456xX";  
+//const char* ssid = "ohbao"; 
+//const char* password = "123456xX";  
+
+String ssid =  " BoBa2_4GHz";
+String password =  "Thang06@";
+
 String url;
 
 void setup() 
@@ -43,21 +46,18 @@ void loop()
 {
   Serial.print("connecting to ");
   Serial.println(host);
- 
   WiFiClientSecure client;
-
+  client.setInsecure();
   const int httpPort = 443;
-  if (!client.connect(host, httpPort)) 
-  {
+  if (!client.connect(host, httpPort)){
     Serial.println("connection failed");
+    client.setInsecure();
     return;
   }
 
   t++;
-  
-  url = "/macros/s/AKfycbyv6koMALyPSHIlVG8pp0ysDgmIaA-csMx4bB05utsQZXlJKN0/exec?tag=ohbao&value=1233";
+  url = "/macros/s/AKfycbxsMad8bqrkqXUkajFobCX3C9-BXrgkPXDoE1QJqN3tprFn7SIo/exec?maThietBi=E20050248611009026000FF2";
 
-  
   client.print(String("GET ") + url + " HTTP/1.1\r\n" +
                "Host: " + host + "\r\n" + 
                "Connection: close\r\n\r\n");

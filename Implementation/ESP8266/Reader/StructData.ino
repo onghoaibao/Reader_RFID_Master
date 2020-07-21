@@ -1,7 +1,5 @@
 #include "headerFile.h"
 
-Node* head_data = NULL;
-
 void append(Node** head, String sData)
 {
   Node* newNode = new Node;
@@ -46,7 +44,7 @@ void appendWithoutRepeat(String str){
   Node* head_data_temp = head_data;
   while (head_data_temp != NULL) {
     String data = head_data_temp->sNodes_Data;
-    Serial.println("data: " + data);
+    //Serial.println("data: " + data);
     if(str == data){
       return;
     }
@@ -59,7 +57,7 @@ bool isElementInStruct(String str) {
   Node* head_data_temp = head_data;
   while (head_data_temp != NULL) {
     String sDT = head_data_temp->sNodes_Data;
-    Serial.println("sDT: " + sDT);
+    //Serial.println("sDT: " + sDT);
     if (str == sDT) {
 
     }
