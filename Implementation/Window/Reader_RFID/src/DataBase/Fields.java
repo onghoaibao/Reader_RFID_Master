@@ -11,6 +11,9 @@ package DataBase;
  */
 public class Fields {
 
+    public Fields() {
+    }
+
     public Fields(String field1, String field2, String field3, String field4, String field5, String field6, String field7, String field8) {
         this.field1 = field1;
         this.field2 = field2;

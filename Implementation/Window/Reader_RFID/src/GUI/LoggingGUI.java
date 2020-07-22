@@ -202,12 +202,14 @@ public class LoggingGUI extends javax.swing.JFrame {
     private void jButtonHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHuyBoActionPerformed
 
         this.isStatus = -1;       // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButtonHuyBoActionPerformed
 
     private void jButton1ReadOnlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ReadOnlyActionPerformed
         // TODO add your handling code here:
 
         this.isStatus = 2;
+        dispose();
     }//GEN-LAST:event_jButton1ReadOnlyActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed

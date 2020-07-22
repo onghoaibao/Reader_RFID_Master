@@ -5,11 +5,10 @@
  */
 package GUI;
 
+import DataBase.Fields;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -19,21 +18,20 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import DataBase.Fields;
 import DataBase.RequestGETDataBase;
+import DataBase.SheetsQuickstart;
 import MultiTable.MultiLineHeaderRenderer;
 import MultiTable.MultiLineTableCellRenderer;
-import java.awt.AWTEventMulticaster;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.security.GeneralSecurityException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import reader_rfid.Reader_RFID;
 import reader_rfid.ThemThietBiMoi;
 
 /**
@@ -189,6 +187,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jButtonReload.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         jButtonReload.setText("Reload");
         jButtonReload.setPreferredSize(new java.awt.Dimension(63, 12));
+        jButtonReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReloadActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -283,6 +286,47 @@ public class MainJFrame extends javax.swing.JFrame {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonChinhSuaActionPerformed
+
+    private void clearAllRow() {
+        y = 0;
+        System.out.println("row: " + dm.getRowCount());
+        for (int i = dm.getRowCount() - 1; i >= 0; i--) {
+            dm.removeRow(i);
+        }
+        jTableData.repaint();
+    }
+
+    //Reload table
+    private void jButtonReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReloadActionPerformed
+        try {
+            clearAllRow();
+            SheetsQuickstart quickstart = new SheetsQuickstart();
+            try {
+                quickstart = new SheetsQuickstart();
+            } catch (GeneralSecurityException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            List<Fields> lField = quickstart.getDeviceInformation();
+            for (Fields f : lField) {
+                setRowDataToTable(y,
+                        f.getField1(),
+                        f.getField2(),
+                        f.getField3(),
+                        f.getField4(),
+                        f.getField5(),
+                        f.getField6(),
+                        f.getField7(),
+                        f.getField8());
+                y++;
+            }
+        } catch (GeneralSecurityException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonReloadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -388,17 +432,17 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     public void setRowDataToTable(int row,
-            String stt, String dv, String sx,
-            String tthd, String dvm_nm, String nt,
+            String stt, String name, String sx,
+            String tthd, String dvm_nm, String ngaytra,
             String lsdc, String ht) {
         dm.addRow(new Object[]{});
         jTableData.setModel(dm);
         jTableData.setValueAt(stt, row, 0);
-        jTableData.setValueAt(dv, row, 1);
+        jTableData.setValueAt(name, row, 1);
         jTableData.setValueAt(sx, row, 2);
         jTableData.setValueAt(tthd, row, 3);
         jTableData.setValueAt(dvm_nm, row, 4);
-        jTableData.setValueAt(nt, row, 5);
+        jTableData.setValueAt(ngaytra, row, 5);
         jTableData.setValueAt(lsdc, row, 6);
         jTableData.setValueAt(ht, row, 7);
     }
@@ -436,38 +480,58 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     private void loadtable() {
+        clearAllRow();
         ScheduledExecutorService service__ = Executors.newSingleThreadScheduledExecutor();
         service__.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 if (loggingGUI.getStatus() == 1) {
-                    jPanel1Modify.setVisible(true);
-
-                    for (int y = 0; y < 10; y++) {
-                        setRowDataToTable(y, String.valueOf(y + 1), "Máy siêu âm màu (01 máy)\n112233/logicE\nGE/Mỹ",
-                                "15/06/2000;\n999.999.000;\nMediruop",
-                                "Tot",
-                                "Nội tổng quát\n01/011/2020",
-                                "01/02/2020",
-                                "01/01/2020: Nội Tổng quát\n01/02/2020 trả\n15/02/2020:\nNội thần kinh mượn",
-                                "Nội thần kinh");
-                        ii = y;
+                    try {                        
+                        jPanel1Modify.setVisible(true);
+                        SheetsQuickstart quickstart = new SheetsQuickstart();
+                        List<Fields> lField = quickstart.getDeviceInformation();
+                        for (Fields f : lField) {
+                            setRowDataToTable(y,
+                                    f.getField1(),
+                                    f.getField2(),
+                                    f.getField3(),
+                                    f.getField4(),
+                                    f.getField5(),
+                                    f.getField6(),
+                                    f.getField7(),
+                                    f.getField8());
+                            y++;
+                        }
+                        loggingGUI.dispose();
+                        service__.shutdown();
+                    } catch (GeneralSecurityException ex) {
+                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    loggingGUI.dispose();
-                    service__.shutdown();
                 } else if (loggingGUI.getStatus() == 2) {
-                    for (int y = 0; y < 10; y++) {
-                        setRowDataToTable(y, String.valueOf(y + 1), "Máy siêu âm màu (01 máy)\n112233/logicE\nGE/Mỹ",
-                                "15/06/2000;\n999.999.000;\nMediruop",
-                                "Tot",
-                                "Nội tổng quát\n01/011/2020",
-                                "01/02/2020",
-                                "01/01/2020: Nội Tổng quát\n01/02/2020 trả\n15/02/2020:\nNội thần kinh mượn",
-                                "Nội thần kinh");
-                        ii = y;
+                    try {
+                        SheetsQuickstart quickstart = new SheetsQuickstart();
+                        List<Fields> lField = quickstart.getDeviceInformation();
+                        for (Fields f : lField) {
+                            setRowDataToTable(y,
+                                    f.getField1(),
+                                    f.getField2(),
+                                    f.getField3(),
+                                    f.getField4(),
+                                    f.getField5(),
+                                    f.getField6(),
+                                    f.getField7(),
+                                    f.getField8());
+                            y++;
+                        }
+                        loggingGUI.dispose();
+                        service__.shutdown();
+                    } catch (GeneralSecurityException ex) {
+                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    loggingGUI.dispose();
-                    service__.shutdown();
                 } else if (loggingGUI.getStatus() == -1) {
                     dispatchEvent(new WindowEvent(MainJFrame.this, WindowEvent.WINDOW_CLOSING));
                 }

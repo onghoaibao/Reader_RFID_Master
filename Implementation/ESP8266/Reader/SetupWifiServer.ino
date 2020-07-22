@@ -142,7 +142,7 @@ void handleClientServer() {
   sv.handleClient();
 }
 
-int t = 5;
+int t = 10;
 void client_Sendata(String maThietbi, String pos) {
   WiFiClientSecure client;
   client.setInsecure();
@@ -153,7 +153,7 @@ void client_Sendata(String maThietbi, String pos) {
     return;
   }
   String url = "/macros/s/AKfycbxsMad8bqrkqXUkajFobCX3C9-BXrgkPXDoE1QJqN3tprFn7SIo/exec?maThietBi=" + maThietbi + "&vitri=" + pos + String(t);
-  t+4;
+  t+=4;
   client.print(String("GET ") + url + " HTTP/1.1\r\n" +
                "Host: " + __host__ + "\r\n" +
                "Connection: close\r\n\r\n");
@@ -168,6 +168,7 @@ void client_Sendata(String maThietbi, String pos) {
   }
   Serial.println();
   Serial.println("closing connection");
+  delay(2000);
 }
 
 String getStatusMaThietBi(String maThietbi) {
