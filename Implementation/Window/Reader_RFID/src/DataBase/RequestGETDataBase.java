@@ -21,11 +21,10 @@ public class RequestGETDataBase {
     private static String GET_URL_FIRST = "https://script.google.com/macros/s/AKfycbyv6koMALyPSHIlVG8pp0ysDgmIaA-csMx4bB05utsQZXlJKN0/exec?";
 
     public void executeGET(String maThietbi, String properties_name, String properties_sx,
-                          String trangthai, String dvMuon, String ngayMuon, String ngayTra,
-                          String lsdc, String hientai) throws MalformedURLException {       
+                          String trangthai) throws MalformedURLException {       
         try {
             String https_url = getURL(maThietbi, properties_name, properties_sx,
-                            trangthai, dvMuon, ngayMuon, ngayTra, lsdc, hientai);
+                            trangthai);
             URL myUrl = new URL(https_url);
             HttpsURLConnection conn = (HttpsURLConnection) myUrl.openConnection();
             InputStream is = conn.getInputStream();
@@ -42,18 +41,17 @@ public class RequestGETDataBase {
     }
     
     private String getURL(String maThietbi, String properties_name, String properties_sx,
-                          String trangthai, String dvMuon, String ngayMuon, String ngayTra,
-                          String lsdc, String hientai){
+                          String trangthai){
         String url = GET_URL_FIRST 
                 + "maThietBi=" + maThietbi + "&"
                 + "properties_name=" + properties_name + "&"
                 + "properties_name=" + properties_name + "&"
                 + "properties_sx=" + properties_sx + "&"
                 + "trangthai=" + trangthai + "&"
-                + "dvMuon=" + dvMuon + "&"
-                + "ngayTra=" + ngayTra + "&"
-                + "lsdc=" + lsdc + "&"
-                + "hientai=" + hientai;
+                + "dvMuon=Khong&" 
+                + "ngayTra=Khong&" 
+                + "lsdc=Khonng&"
+                + "hientai=Kho";
         System.out.println("URL: " + url);
         return url;
     }   

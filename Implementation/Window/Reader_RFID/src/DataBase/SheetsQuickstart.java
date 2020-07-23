@@ -22,9 +22,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +45,7 @@ public class SheetsQuickstart {
     private static Sheets service;
     private static NetHttpTransport HTTP_TRANSPORT;
     private static final String spreadsheetId = "1vay8xuGeVEgNzCC-UwR230-MvkNsBbVuodZ2hORkf3I";
-    
+
     private static final String spreadsheetIdAcount = "1rdQB3aXvY7fEuqzjb0LQRnlQMyYH0HV0wn-z9c8Ho7c";
 
     // declare Column
@@ -101,6 +104,28 @@ public class SheetsQuickstart {
 //            }
 //        }
 //    }
+    private int getRowInSheet() {
+        int row = 0;
+        try {
+            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                    .setApplicationName(APPLICATION_NAME)
+                    .build();
+
+            String range = "data!A2:J100";
+            ValueRange response = service.spreadsheets().values()
+                    .get(spreadsheetId, range)
+                    .execute();
+            List<List<Object>> values = response.getValues();
+            row = values.size();
+        } catch (GeneralSecurityException ex) {
+            Logger.getLogger(SheetsQuickstart.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SheetsQuickstart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return row;
+    }
+
     public List<Fields> getDeviceInformation() {
         List<Fields> lFields = new ArrayList<>();
         try {
@@ -120,12 +145,6 @@ public class SheetsQuickstart {
             } else {
                 System.out.println(" Data");
                 for (List row : values) {
-//                    for (int i = 0; i < row.size(); i++) {
-//                        if (row.get(i) != null) {
-//                            System.out.print(row.get(i) + "  ");
-//                            
-//                        }
-//                    }
                     Fields fields = new Fields();
                     fields.setField1(row.get(0).toString());
                     fields.setField2(row.get(3).toString());
@@ -192,18 +211,49 @@ public class SheetsQuickstart {
         return arrList;
     }
 
-    public static void updateInformationOnSheet(int row,
-            String C, String D, String E, String F,
-            String G, String H, String I, String J
+    public void updateInformationOnSheet(int rowMTB,
+            String MTB, String TTTB, String NSX, String TTHD,
+            String BR, String RT, String LSDC, String POS, String isKHO
     ) throws IOException {
-        updateInforCell("C" + String.valueOf(row), "Mango");
-        updateInforCell("D" + String.valueOf(row), "Mango");
-        updateInforCell("E" + String.valueOf(row), "Mango");
-        updateInforCell("F" + String.valueOf(row), "Mango");
-        updateInforCell("G" + String.valueOf(row), "Mango");
-        updateInforCell("H" + String.valueOf(row), "Mango");
-        updateInforCell("I" + String.valueOf(row), "Mango");
-        updateInforCell("J" + String.valueOf(row), "Mango");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        updateInforCell("A" + String.valueOf(rowMTB), String.valueOf(rowMTB));
+        updateInforCell("B" + String.valueOf(rowMTB), MTB);
+        updateInforCell("C" + String.valueOf(rowMTB), String.valueOf(dtf.format(now)));
+        updateInforCell("D" + String.valueOf(rowMTB), TTTB);
+        updateInforCell("E" + String.valueOf(rowMTB), NSX);
+        updateInforCell("F" + String.valueOf(rowMTB), TTHD);
+        updateInforCell("G" + String.valueOf(rowMTB), BR);
+        updateInforCell("H" + String.valueOf(rowMTB), RT);
+        updateInforCell("I" + String.valueOf(rowMTB), LSDC);
+        updateInforCell("J" + String.valueOf(rowMTB), POS);
+        updateInforCell("K" + String.valueOf(rowMTB), isKHO);
+    }
+
+    public boolean editInformationOnSheet(
+            String MTB, String TTTB, String NSX, String TTHD,
+            String BR, String RT, String LSDC, String POS, String isKHO
+    ) throws IOException {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+
+        int rowMTB = getPosMaThietBi(MTB);
+        if (rowMTB != -1) {
+            updateInforCell("A" + String.valueOf(rowMTB), String.valueOf(rowMTB));
+            updateInforCell("B" + String.valueOf(rowMTB), MTB);
+            updateInforCell("C" + String.valueOf(rowMTB), String.valueOf(dtf.format(now)));
+            updateInforCell("D" + String.valueOf(rowMTB), TTTB);
+            updateInforCell("E" + String.valueOf(rowMTB), NSX);
+            updateInforCell("F" + String.valueOf(rowMTB), TTHD);
+            updateInforCell("G" + String.valueOf(rowMTB), BR);
+            updateInforCell("H" + String.valueOf(rowMTB), RT);
+            updateInforCell("I" + String.valueOf(rowMTB), LSDC);
+            updateInforCell("J" + String.valueOf(rowMTB), POS);
+            //updateInforCell("K" + String.valueOf(rowMTB), isKHO);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private static void updateInforCell(String pos, String value) throws IOException {
@@ -221,11 +271,13 @@ public class SheetsQuickstart {
 
     }
 
-    public void createNewItemOnSheet(String sCode) throws IOException {
-        int index = getPosMaThietBi(sCode);
-        if (index != -1) {
+    public void createNewItemOnSheet(String MTB, String TTTB, String NSX,
+            String TTHD)
+            throws IOException {
+        int row = getRowInSheet() + 2;
+        updateInformationOnSheet(row, MTB, TTTB, NSX, TTHD,
+                "Khong", "Khong", "Khong", "Khong", "Kho");
 
-        }
     }
 
     private static int getPosMaThietBi(String sCode) throws IOException {

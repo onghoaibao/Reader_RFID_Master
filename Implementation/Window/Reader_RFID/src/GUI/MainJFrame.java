@@ -275,15 +275,9 @@ public class MainJFrame extends javax.swing.JFrame {
             for (int i = 0; i < 8; i++) {
                 s = s + (String.valueOf(jTableData.getValueAt(row, i)) + " - ");
             }
+            //setContentInfo();
+
             System.out.print(s.replace("/n", ""));
-        }
-        RequestGETDataBase requestGETDataBase = new RequestGETDataBase();
-        try {
-            requestGETDataBase.executeGET(String.valueOf(y), "2", "3ax-xscas-dasd-sdas-dsd", "4",
-                    "5", "6", "7", "8", "9");
-            y += 7;
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonChinhSuaActionPerformed
 
@@ -293,7 +287,7 @@ public class MainJFrame extends javax.swing.JFrame {
         for (int i = dm.getRowCount() - 1; i >= 0; i--) {
             dm.removeRow(i);
         }
-        jTableData.repaint();
+        //jTableData.repaint();
     }
 
     //Reload table
