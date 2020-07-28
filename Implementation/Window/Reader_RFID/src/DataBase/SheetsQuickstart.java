@@ -13,6 +13,10 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.AppendValuesResponse;
+import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
+import com.google.api.services.sheets.v4.model.DeleteDimensionRequest;
+import com.google.api.services.sheets.v4.model.DimensionRange;
+import com.google.api.services.sheets.v4.model.Request;
 import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import java.io.FileInputStream;
@@ -107,10 +111,10 @@ public class SheetsQuickstart {
     private int getRowInSheet() {
         int row = 0;
         try {
-            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-            service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                    .setApplicationName(APPLICATION_NAME)
-                    .build();
+//            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+//            service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+//                    .setApplicationName(APPLICATION_NAME)
+//                    .build();
 
             String range = "data!A2:J100";
             ValueRange response = service.spreadsheets().values()
@@ -118,8 +122,6 @@ public class SheetsQuickstart {
                     .execute();
             List<List<Object>> values = response.getValues();
             row = values.size();
-        } catch (GeneralSecurityException ex) {
-            Logger.getLogger(SheetsQuickstart.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(SheetsQuickstart.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -143,7 +145,7 @@ public class SheetsQuickstart {
             if (values == null || values.isEmpty()) {
                 System.out.println("No data found.");
             } else {
-                System.out.println(" Data");
+                System.out.println(" Data " + "  ROW=" +values.size());
                 for (List row : values) {
                     Fields fields = new Fields();
                     fields.setField1(row.get(0).toString());
@@ -154,21 +156,23 @@ public class SheetsQuickstart {
                     fields.setField6(row.get(7).toString());
                     fields.setField7(row.get(8).toString());
                     fields.setField8(row.get(9).toString());
+                    fields.setMTB(row.get(1).toString());
                     System.out.println();
                     lFields.add(fields);
                 }
 
-                for (Fields f : lFields) {
-                    System.out.println("f1: " + f.getField1());
-                    System.out.println("f2: " + f.getField2());
-                    System.out.println("f3: " + f.getField3());
-                    System.out.println("f4: " + f.getField4());
-                    System.out.println("f5: " + f.getField5());
-                    System.out.println("f6: " + f.getField6());
-                    System.out.println("f7: " + f.getField7());
-                    System.out.println("f8: " + f.getField8());
-                    System.out.println("------------------");
-                }
+//                for (Fields f : lFields) {
+//                    System.out.println("f1: " + f.getField1());
+//                    System.out.println("f2: " + f.getField2());
+//                    System.out.println("f3: " + f.getField3());
+//                    System.out.println("f4: " + f.getField4());
+//                    System.out.println("f5: " + f.getField5());
+//                    System.out.println("f6: " + f.getField6());
+//                    System.out.println("f7: " + f.getField7());
+//                    System.out.println("f8: " + f.getField8());
+//                    System.out.println("fMTB: " + f.getMTB());
+//                    System.out.println("------------------");
+//                }
             }
 
         } catch (IOException ex) {
@@ -199,7 +203,7 @@ public class SheetsQuickstart {
                 System.out.println(" Data");
                 for (List row : values) {
                     String ac = row.get(0).toString();
-                    System.out.println(ac);
+                    //System.out.println(ac);
                     arrList.add(ac);
                 }
             }
@@ -217,7 +221,7 @@ public class SheetsQuickstart {
     ) throws IOException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
-        updateInforCell("A" + String.valueOf(rowMTB), String.valueOf(rowMTB));
+        updateInforCell("A" + String.valueOf(rowMTB), String.valueOf(rowMTB - 1));
         updateInforCell("B" + String.valueOf(rowMTB), MTB);
         updateInforCell("C" + String.valueOf(rowMTB), String.valueOf(dtf.format(now)));
         updateInforCell("D" + String.valueOf(rowMTB), TTTB);
@@ -230,6 +234,18 @@ public class SheetsQuickstart {
         updateInforCell("K" + String.valueOf(rowMTB), isKHO);
     }
 
+    private void updateNumberID(int row){
+        int tr = getRowInSheet() + 1;
+        for(int i = row; i < tr + 1; i++){
+            try {
+                System.out.println("delete row: " + i);
+                updateInforCell("A" + String.valueOf(i), String.valueOf(i - 1));
+            } catch (IOException ex) {
+                Logger.getLogger(SheetsQuickstart.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }       
+    }
+    
     public boolean editInformationOnSheet(
             String MTB, String TTTB, String NSX, String TTHD,
             String BR, String RT, String LSDC, String POS, String isKHO
@@ -237,9 +253,10 @@ public class SheetsQuickstart {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
 
-        int rowMTB = getPosMaThietBi(MTB);
+        int rowMTB = getPosMaThietBi(MTB) + 1;
+        System.out.println("rowMTB: " + rowMTB);
         if (rowMTB != -1) {
-            updateInforCell("A" + String.valueOf(rowMTB), String.valueOf(rowMTB));
+            updateInforCell("A" + String.valueOf(rowMTB), String.valueOf(rowMTB - 1));
             updateInforCell("B" + String.valueOf(rowMTB), MTB);
             updateInforCell("C" + String.valueOf(rowMTB), String.valueOf(dtf.format(now)));
             updateInforCell("D" + String.valueOf(rowMTB), TTTB);
@@ -254,6 +271,36 @@ public class SheetsQuickstart {
         } else {
             return false;
         }
+    }
+
+    public boolean deleteRowInSheet(String mtb) {
+        try {
+            int row = getPosMaThietBi(mtb);
+            System.out.println("Delete row: " + row);
+            Request request = new Request()
+                    .setDeleteDimension(new DeleteDimensionRequest()
+                            .setRange(new DimensionRange()
+                                    .setSheetId(0)
+                                    .setDimension("ROWS")
+                                    .setStartIndex(row)
+                                    .setEndIndex(row+ 1)
+                            )
+                    );
+
+            List<Request> requests = new ArrayList<>();
+            requests.add(request);
+
+            BatchUpdateSpreadsheetRequest content = new BatchUpdateSpreadsheetRequest();
+            content.setRequests(requests);
+            service.spreadsheets().batchUpdate(spreadsheetId, content).execute();
+            
+            updateNumberID(row);
+
+        } catch (IOException ex) {
+            Logger.getLogger(SheetsQuickstart.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 
     private static void updateInforCell(String pos, String value) throws IOException {
@@ -276,12 +323,12 @@ public class SheetsQuickstart {
             throws IOException {
         int row = getRowInSheet() + 2;
         updateInformationOnSheet(row, MTB, TTTB, NSX, TTHD,
-                "Khong", "Khong", "Khong", "Khong", "Kho");
+                "Khong", "Khong", "Khong", "Kho", "True");
 
     }
 
     private static int getPosMaThietBi(String sCode) throws IOException {
-        String range = "data!B1:B100";
+        String range = "data!B2:B100";
         ValueRange response = service.spreadsheets().values()
                 .get(spreadsheetId, range)
                 .execute();
@@ -290,14 +337,19 @@ public class SheetsQuickstart {
         if (values == null || values.isEmpty()) {
             System.out.println("No data found.");
         } else {
-            System.out.println(" Data");
-            int i = 0;
-            for (List row : values) {
-                i++;
-                if (row.get(0).toString().contains(sCode)) {
-                    System.out.println("data: " + row.get(0) + "  row: " + i);
-                    return i;
+            try {
+                System.out.println(" Data");
+                int i = 0;
+                for (List row : values) {
+                    i++;
+                    if (row.get(0).toString().contains(sCode)
+                            || sCode.contains(row.get(0).toString())) {
+                        System.out.println("data: " + row.get(0) + "  row: " + i);
+                        return i;
+                    }
                 }
+            } catch (IndexOutOfBoundsException e) {
+                return -1;
             }
         }
         return -1;

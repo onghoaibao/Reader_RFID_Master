@@ -26,9 +26,11 @@ void loop() {
     if (dataReader.length() <= 28) {
       char c = readerSerial.read();
       dataReader += hexToASCII(c);
+      Serial.print(c):
     }
     else {
-      Serial.println("Data Reader 1: " + dataReader + "  len: " + String(dataReader.length()));
+      Serial.println():
+      //Serial.println("Data Reader 1: " + dataReader + "  len: " + String(dataReader.length()));
       char c = readerSerial.read();
     }
     timeout = 0;

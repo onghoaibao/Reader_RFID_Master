@@ -9,10 +9,20 @@ import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
+
+import com.example.ohbao1305946.testapp_1.MainActivity;
+import com.example.ohbao1305946.testapp_1.R;
+import com.example.ohbao1305946.testapp_1.RFID.AdapterRFID;
+import com.example.ohbao1305946.testapp_1.RFID.DeviceRFID;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class BLEConnection {
@@ -24,21 +34,25 @@ public class BLEConnection {
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothGattCharacteristic characteristic;
 
-
-    private static final UUID SERVICE_UUID = UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb");
-    private static final UUID CHARACTERISTIC_UUID_READ = UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb");
-    private static final UUID CHARACTERISTIC_UUID_WRITE = UUID.fromString("0000ffe2-0000-1000-8000-00805f9b34fb");
+    private static UUID SERVICE_UUID = UUID.fromString("0003CDD0-0000-1000-8000-00805F9B0131");
+    private static final UUID CHARACTERISTIC_UUID_READ = UUID.fromString("0003CDD1-0000-1000-8000-00805F9B0131");
+    private static final UUID CHARACTERISTIC_UUID_WRITE = UUID.fromString("0003CDD2-0000-1000-8000-00805F9B0131");
 
     private String MAC_BLE;
     private Context sThis;
     private static final String TAG = "SHOW";
     private boolean StatusConnect;
+    private ListView lv;
+    private AdapterRFID adapterRFID;
+    private List<DeviceRFID> rfidListDevice = new ArrayList<>();
 
-
-    public BLEConnection(String macBLE, Context sThis, BluetoothAdapter mBluetoothAdapter) {
+    public BLEConnection(String macBLE, Context sThis, BluetoothAdapter mBluetoothAdapter, ListView lvDevice) {
         this.MAC_BLE  = macBLE;
         this.sThis = sThis;
         this.mBluetoothAdapter = mBluetoothAdapter;
+        this.lv = lvDevice;
+        adapterRFID = new AdapterRFID(sThis, R.layout.rfid_layout, rfidListDevice);
+        lv.setAdapter(adapterRFID);
     }
 
     public void connectToBLE(){
@@ -135,7 +149,6 @@ public class BLEConnection {
 
         @Override
         public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
-//            super.onCharacteristicWrite(gatt, characteristic, status);
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 Log.i(TAG, "Succesfully Write characteristic: " + characteristic);
             } else {
@@ -145,10 +158,11 @@ public class BLEConnection {
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-            //super.onCharacteristicChanged(gatt, characteristic);
             final byte[] data = characteristic.getValue();
             try {
                 String dataReadBLE =  new String(data, "UTF-8");
+                rfidListDevice.add(new DeviceRFID(dataReadBLE, "Đã tìm thấy", "May Sieu Am 2"));
+                adapterRFID.notifyDataSetChanged();
                 Log.i(TAG, "Value Decimal: " + dataReadBLE);
             }  catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -170,6 +184,5 @@ public class BLEConnection {
         // TODO
         boolean st = bluetoothGatt.writeCharacteristic(mWriteCharacteristic);
     }
-
 
 }

@@ -1,7 +1,8 @@
-package DataBase;
+package GUI;
 
 import GUI.*;
 import DataBase.RequestGETDataBase;
+import DataBase.SheetsQuickstart;
 import DataBase.SheetsQuickstart;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -310,9 +311,12 @@ public class EditDeviceGUI extends javax.swing.JFrame {
                             sName1, sName2, sName3, sName4, sName5, sName6,
                             sName7, "");
                     if(!b){
-                        JOptionPane.showMessageDialog(null, "Người dùng hoặc mật khẩu không chính xác", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy mã thiết bị", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                    dispose();
+                    else{
+                        dispose();
+                    }
+                    //
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(EditDeviceGUI.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (GeneralSecurityException ex) {

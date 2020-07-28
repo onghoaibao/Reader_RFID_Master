@@ -32,6 +32,7 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import reader_rfid.ThemThietBiMoi;
 
 /**
@@ -50,6 +51,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     public static ThemThietBiMoi bAddDevice = new ThemThietBiMoi();
     public static AddNewDeviceGUI addNewDeviceGUI = new AddNewDeviceGUI();
+    public static EditDeviceGUI editDeviceGUI = new EditDeviceGUI();
     int iRow = 0;
 
     private final LoggingGUI loggingGUI = new LoggingGUI();
@@ -71,6 +73,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         setTitle("Giam Sat Thiet Bi Y Te");
         configTable();
+        clearAllRow();
         loadtable();
         System.out.println();
 
@@ -136,8 +139,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel1Modify.setLayout(new java.awt.GridBagLayout());
 
         jButtonThemMoi.setBackground(new java.awt.Color(4, 174, 1));
-        jButtonThemMoi.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jButtonThemMoi.setText("Them moi");
+        jButtonThemMoi.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jButtonThemMoi.setText("Tạo mới");
         jButtonThemMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonThemMoiActionPerformed(evt);
@@ -146,15 +149,16 @@ public class MainJFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 82;
-        gridBagConstraints.ipady = 7;
+        gridBagConstraints.ipadx = 79;
+        gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(107, 1, 0, 1);
+        gridBagConstraints.insets = new java.awt.Insets(115, 1, 0, 1);
         jPanel1Modify.add(jButtonThemMoi, gridBagConstraints);
 
         jButtonChinhSua.setBackground(new java.awt.Color(248, 249, 248));
-        jButtonChinhSua.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jButtonChinhSua.setText("Sua");
+        jButtonChinhSua.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jButtonChinhSua.setText("Cập nhật");
+        jButtonChinhSua.setVerifyInputWhenFocusTarget(false);
         jButtonChinhSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonChinhSuaActionPerformed(evt);
@@ -163,21 +167,26 @@ public class MainJFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 123;
-        gridBagConstraints.ipady = 8;
+        gridBagConstraints.ipadx = 73;
+        gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 1, 0, 1);
         jPanel1Modify.add(jButtonChinhSua, gridBagConstraints);
 
-        jButtonXoa.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jButtonXoa.setText("Xoa");
+        jButtonXoa.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jButtonXoa.setText("Xóa");
+        jButtonXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonXoaActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.ipadx = 122;
-        gridBagConstraints.ipady = 8;
+        gridBagConstraints.ipadx = 111;
+        gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 1, 202, 1);
+        gridBagConstraints.insets = new java.awt.Insets(18, 1, 210, 1);
         jPanel1Modify.add(jButtonXoa, gridBagConstraints);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -208,11 +217,13 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTableLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1Modify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(jPanelTableLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1018, Short.MAX_VALUE)
+                        .addGap(37, 37, 37))
+                    .addGroup(jPanelTableLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(jPanel1Modify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelTableLayout.setVerticalGroup(
             jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,14 +281,27 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = jTableData.getSelectedRow();
         int col = jTableData.getSelectedColumnCount();
+        System.out.println("selected row: " + String.valueOf(row)
+                + "  selected col: " + String.valueOf(col));
         if (row != -1 && col != -1) {
             String s = "";
             for (int i = 0; i < 8; i++) {
-                s = s + (String.valueOf(jTableData.getValueAt(row, i)) + " - ");
+                s = jTableData.getValueAt(row, i).toString();
+                System.out.println("row: " + String.valueOf(i) + "=" + s);
             }
             //setContentInfo();
-
-            System.out.print(s.replace("/n", ""));
+            editDeviceGUI.setContentInfo(jTableData.getValueAt(row, 1).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 2).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 3).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 4).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 5).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 6).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 7).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 8).toString().replace("\n", ","));
+            editDeviceGUI.setVisible(true);
+            //System.out.print(s.replace("/n", ""));
+        } else {
+            JOptionPane.showMessageDialog(null, "Chọn một hàng để chỉnh sữa ", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonChinhSuaActionPerformed
 
@@ -304,7 +328,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
             List<Fields> lField = quickstart.getDeviceInformation();
             for (Fields f : lField) {
-                setRowDataToTable(y,
+                setRowDataToTable(y, f.getMTB(),
                         f.getField1(),
                         f.getField2(),
                         f.getField3(),
@@ -321,6 +345,32 @@ public class MainJFrame extends javax.swing.JFrame {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonReloadActionPerformed
+
+    // Xoa row in the sheet
+    private void jButtonXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXoaActionPerformed
+        int row = jTableData.getSelectedRow();
+        int col = jTableData.getSelectedColumnCount();
+        System.out.println("selected row: " + String.valueOf(row)
+                + "  selected col: " + String.valueOf(col));
+        if (row != -1 && col != -1) {
+            try {
+                String s = "";
+                for (int i = 0; i < 8; i++) {
+                    s = jTableData.getValueAt(row, i).toString();
+                    System.out.println("row: " + String.valueOf(i) + "=" + s);
+                }
+                SheetsQuickstart sheetAPI = new SheetsQuickstart();
+                boolean b = sheetAPI.deleteRowInSheet(jTableData.getValueAt(row, 1).toString());
+                if (!b) {
+                    JOptionPane.showMessageDialog(null, "Chọn hàng cần xóa", "Error", JOptionPane.ERROR_MESSAGE);
+                }              
+            } catch (GeneralSecurityException | IOException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Chọn một hàng để chỉnh sữa ", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonXoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -395,7 +445,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 new Object[][]{
                     {}
                 },
-                new Object[]{"ID",
+                new Object[]{"ID", "Ma Thiet Bi",
                     "Tên thiết bị;\nsố lượng;\nSố seri/model\nHãng/nước sx",
                     "Ngày sx;\nNguyên giá;\nCty nhập",
                     "Tình trạng\nhoạt động",
@@ -413,32 +463,34 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jTableData.getColumnModel().getColumn(0).setPreferredWidth(5);
         jTableData.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTableData.getColumnModel().getColumn(2).setPreferredWidth(100);
-        jTableData.getColumnModel().getColumn(3).setPreferredWidth(90);
+        jTableData.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTableData.getColumnModel().getColumn(3).setPreferredWidth(200);
         jTableData.getColumnModel().getColumn(4).setPreferredWidth(90);
-        jTableData.getColumnModel().getColumn(5).setPreferredWidth(120);
-        jTableData.getColumnModel().getColumn(6).setPreferredWidth(250);
-        jTableData.getColumnModel().getColumn(7).setPreferredWidth(300);
+        jTableData.getColumnModel().getColumn(5).setPreferredWidth(150);
+        jTableData.getColumnModel().getColumn(6).setPreferredWidth(150);
+        jTableData.getColumnModel().getColumn(7).setPreferredWidth(220);
+        jTableData.getColumnModel().getColumn(8).setPreferredWidth(200);
         jTableData.setDefaultRenderer(String.class, new MultiLineTableCellRenderer());
         TableRowSorter<? extends TableModel> sort = new TableRowSorter<DefaultTableModel>(dm);
         jTableData.setRowSorter(sort);
         getContentPane().add(scrollpane);
     }
 
-    public void setRowDataToTable(int row,
+    public void setRowDataToTable(int row, String mtb,
             String stt, String name, String sx,
             String tthd, String dvm_nm, String ngaytra,
             String lsdc, String ht) {
         dm.addRow(new Object[]{});
         jTableData.setModel(dm);
         jTableData.setValueAt(stt, row, 0);
-        jTableData.setValueAt(name, row, 1);
-        jTableData.setValueAt(sx, row, 2);
-        jTableData.setValueAt(tthd, row, 3);
-        jTableData.setValueAt(dvm_nm, row, 4);
-        jTableData.setValueAt(ngaytra, row, 5);
-        jTableData.setValueAt(lsdc, row, 6);
-        jTableData.setValueAt(ht, row, 7);
+        jTableData.setValueAt(mtb, row, 1);
+        jTableData.setValueAt(name, row, 2);
+        jTableData.setValueAt(sx, row, 3);
+        jTableData.setValueAt(tthd, row, 4);
+        jTableData.setValueAt(dvm_nm, row, 5);
+        jTableData.setValueAt(ngaytra, row, 6);
+        jTableData.setValueAt(lsdc, row, 7);
+        jTableData.setValueAt(ht, row, 8);
     }
 
     public void reloadJTable() {
@@ -455,6 +507,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     System.out.println("--Code: " + addNewDeviceGUI.getContent().getCode().toString());
 
                     setRowDataToTable(iRow, String.valueOf(iRow + 1),
+                            addNewDeviceGUI.getContent().getCode().toString(),
                             addNewDeviceGUI.getContent().getName_seri().toString().replace("; ", "\n"),
                             addNewDeviceGUI.getContent().getNgaySX().toString().replace("; ", "\n"),
                             addNewDeviceGUI.getContent().getTinhTrang().toString().replace("; ", "\n"),
@@ -480,12 +533,12 @@ public class MainJFrame extends javax.swing.JFrame {
             @Override
             public void run() {
                 if (loggingGUI.getStatus() == 1) {
-                    try {                        
+                    try {
                         jPanel1Modify.setVisible(true);
                         SheetsQuickstart quickstart = new SheetsQuickstart();
                         List<Fields> lField = quickstart.getDeviceInformation();
                         for (Fields f : lField) {
-                            setRowDataToTable(y,
+                            setRowDataToTable(y, f.getMTB(),
                                     f.getField1(),
                                     f.getField2(),
                                     f.getField3(),
@@ -508,7 +561,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         SheetsQuickstart quickstart = new SheetsQuickstart();
                         List<Fields> lField = quickstart.getDeviceInformation();
                         for (Fields f : lField) {
-                            setRowDataToTable(y,
+                            setRowDataToTable(y, f.getMTB(),
                                     f.getField1(),
                                     f.getField2(),
                                     f.getField3(),

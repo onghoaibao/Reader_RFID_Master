@@ -4,57 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
     android:layout_margin="1dp"
+    android:background="#FFFFFD"
     tools:context=".MainActivity">
 
-<!--    <androidx.constraintlayout.widget.Guideline-->
-<!--        android:id="@+id/g1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintGuide_percent="0.5" />-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#09a1e7"
+        android:minHeight="?attr/actionBarSize"
+        android:padding="5dp"
+        tools:ignore="MissingConstraints">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
 
+            <TextView
+                android:id="@+id/tvStatusOn_Off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
 
-    <Button
-        android:id="@+id/BTenableCPN"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="Enable "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.1"
-        android:textAllCaps="false"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="IBEACON WATER METER"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <Button
         android:id="@+id/BTconnectCPN"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="Connect"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.5"
-        android:textAllCaps="false"/>
+        app:layout_constraintVertical_bias="0.93" />
+
+    <Button
+        android:id="@+id/BTenableCPN"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Enable "
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.93" />
 
     <Button
         android:id="@+id/BTstartCPN"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="Start"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.9"
-        android:textAllCaps="false"/>
+        app:layout_constraintVertical_bias="0.93" />
+
+    <ListView
+        android:id="@+id/lvDeviceRFID"
+        android:layout_width="match_parent"
+        android:layout_height="520dp"
+        android:transcriptMode="alwaysScroll"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_top"
+        app:layout_constraintVertical_bias="0.02"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
