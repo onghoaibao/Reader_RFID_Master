@@ -7,11 +7,14 @@ void setup() {
   delay(2000);
   Serial.begin(112500);
   setupBLE103();
+  //setupRFID();
 }
 String cmd = "";
-long i =0;
+int i =0;
 void loop() {
-  delay(2000);
+  delay(1000);
   i+=1;
-  sendDataToPoint("ABCDEABCDEABCDEABCDEAB" + String(i));
+  String a = String("ABCDEFABCDEFABCDEFABCDEF") + String(i);
+  sendDataToPoint(a);
+  //readDataRFID();
 }

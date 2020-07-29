@@ -5,8 +5,8 @@
 #include <SoftwareSerial.h>
 
 // define TX,RX pin for RFID
-#define TX_RFID 3
-#define RX_RFID 4
+#define TX_RFID 4
+#define RX_RFID 3
 SoftwareSerial RFID(RX_RFID, TX_RFID);
 
 // define TX,RX pin for BLE103

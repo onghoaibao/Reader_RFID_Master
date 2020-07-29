@@ -40,20 +40,44 @@ public class AdapterRFID extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(myLayout, null);
+        ViewHolder viewHolder;
+        if(view == null){
+            LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.rfid_layout, null);
 
+            viewHolder = new ViewHolder();
+            viewHolder.matv = (TextView) view.findViewById(R.id.textView_MaThietBi);
+            viewHolder.statustv = (TextView) view.findViewById(R.id.textView_status);
+            viewHolder.nametv = (TextView) view.findViewById(R.id.textView_name);
+            view.setTag(viewHolder);
+        }
+        else{
+            viewHolder = (ViewHolder)view.getTag();
+        }
+
+
+        String sMTB = myDeviceRFIDList.get(position).getMaDevice();
+        if(sMTB.length() > 10) {
+            viewHolder.matv.setText("Mã thiết bị: " + sMTB.substring(sMTB.length() - 5));
+            viewHolder.nametv.setText("Tên thiết bị: " + myDeviceRFIDList.get(position).getNameDevice());
+            viewHolder.statustv.setText("Vị trí: " + myDeviceRFIDList.get(position).getStatusDevice());
+        }
         // Mapping component
-        TextView matv = (TextView) view.findViewById(R.id.textView_MaThietBi);
-        TextView statustv = (TextView) view.findViewById(R.id.textView_status);
-        TextView nametv = (TextView) view.findViewById(R.id.textView_name);
+//        TextView matv = (TextView) view.findViewById(R.id.textView_MaThietBi);
+//        TextView statustv = (TextView) view.findViewById(R.id.textView_status);
+//        TextView nametv = (TextView) view.findViewById(R.id.textView_name);
 
         // assign value
-        String sMTB = myDeviceRFIDList.get(position).getMaDevice();
-        matv.setText("Mã thiết bị: "+ sMTB.substring(sMTB.length()-5));
-        nametv.setText("Tên thiết bị: " + myDeviceRFIDList.get(position).getNameDevice());
-        statustv.setText("Vị trí: " + myDeviceRFIDList.get(position).getStatusDevice());
+
 
         return view;
     }
+
+    private class ViewHolder{
+        TextView matv;
+        TextView statustv;
+        TextView nametv;
+    }
+
+
 }

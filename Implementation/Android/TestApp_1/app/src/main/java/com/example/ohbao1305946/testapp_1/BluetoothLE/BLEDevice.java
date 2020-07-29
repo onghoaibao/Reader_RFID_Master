@@ -50,6 +50,7 @@ public class BLEDevice extends ListActivity {
                 public void run() {
                     String dt = " Name: " + bluetoothDevice.getName() +
                                 " Address: " + bluetoothDevice.getAddress();
+
                     if(!listDevice.contains(bluetoothDevice)) {
                         listDevice.add(bluetoothDevice);
                         Log.i(TAG, "BLE Device: " + dt);

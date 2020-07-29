@@ -21,16 +21,19 @@ import android.bluetooth.le.ScanResult;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.ParcelUuid;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ohbao1305946.testapp_1.BluetoothLE.BLEConnection;
@@ -44,6 +47,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private AdapterRFID adapterRFID;
 
     // Declare mapping component
-    private Button BTenable;
+    private Button BTClear;
     private Button BTscan;
     private Button BTconnect;
 
@@ -75,10 +81,14 @@ public class MainActivity extends AppCompatActivity {
     private static final UUID CHARACTERISTIC_UUID_READ = UUID.fromString("0003CDD1-0000-1000-8000-00805F9B0131");
     private static final UUID CHARACTERISTIC_UUID_WRITE = UUID.fromString("0003CDD2-0000-1000-8000-00805F9B0131");
 
-    private String MAC_BLE;
+    private final String ACTION = "com.example.ohbao1305946.testapp_1.ACTION";
+    private final String KEY = "BLE";
+
+
+    private final String MAC_BLE = "9C:A5:25:98:F8:69";
     private boolean StatusConnect;
-
-
+    private BroadcastReceiver receiver;
+    private TextView tvStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         adapterRFID = new AdapterRFID(MainActivity.this, R.layout.rfid_layout, rfidList);
         lvDevice.setAdapter(adapterRFID);
 
+
         initBluetoothLE();
 
         // Event Button Scan
@@ -98,9 +109,47 @@ public class MainActivity extends AppCompatActivity {
         // Event Button Connect
         ButtonConnectToDevice();
 
+        // Clear Data
+        ButtonEventClearData();
+
         // checking function
         addDataToListView();
 
+        // Register broadcast
+        BroadReceiverBLE103();
+    }
+
+    private void BroadReceiverBLE103(){
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION);
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                //do something based on the intent's action
+                switch (intent.getAction()){
+                    case ACTION:
+                        String data = intent.getExtras().get(KEY).toString();
+                        Log.i(TAG, " --------------------- onReceive ----------------------");
+                        Log.i(TAG, "Data: " + data);
+                        DeviceRFID d = new DeviceRFID(data,"True",
+                                "May Sieu Am 1");
+                        rfidList.add(d);
+                        adapterRFID.notifyDataSetChanged();
+                        break;
+                }
+            }
+
+        };
+        registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (receiver != null) {
+            unregisterReceiver(receiver);
+            receiver = null;
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -122,13 +171,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initMappingComponent(){
-        BTenable = (Button) findViewById(R.id.BTenableCPN);
-        BTscan = (Button) findViewById(R.id.BTstartCPN);
+        BTClear = (Button) findViewById(R.id.BTClearData);
+        BTscan = (Button) findViewById(R.id.BTScan);
         BTconnect = (Button) findViewById(R.id.BTconnectCPN);
         lvDevice = (ListView) findViewById(R.id.lvDeviceRFID);
-        lvDevice.invalidate();
-       // lvDevice.
-        //lvDevice.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        tvStatus = (TextView) findViewById(R.id.tvStatusOn_Off);
+    }
+
+    private void ButtonEventClearData(){
+        BTClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!rfidList.isEmpty()) {
+                    rfidList.clear();
+                    adapterRFID.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     private void eventStartBLEScanning(){
@@ -138,12 +197,13 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         if (isScan) {
-            bleDevice.startScanDeviceBLE();
+            tvStatus.setBackgroundResource(R.drawable.staus_bluetooth_online_red);
+            mBluetoothAdapter.startLeScan(leScanCallback);
             Log.i(TAG, "Start Scan");
             isScan = false;
             BTscan.setText("Scanning");
         } else {
-            bleDevice.stopScanDeviceBLE();
+            mBluetoothAdapter.stopLeScan(leScanCallback);
             Log.i(TAG, "Stop Scan");
             isScan = true;
             BTscan.setText("Start");
@@ -163,13 +223,18 @@ public class MainActivity extends AppCompatActivity {
         BTconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MAC_BLE = "9C:A5:25:98:F8:69";
                 if(isConnection) {
                     connectToBLE();
+                    BTconnect.setText("Disconnect");
+                    BTClear.setEnabled(false);
+                    BTscan.setEnabled(false);
                     isConnection = false;
                 }
                 else{
                     disconnect();
+                    BTconnect.setText("Connect");
+                    BTClear.setEnabled(true);
+                    BTscan.setEnabled(true);
                     isConnection = true;
                 }
             }
@@ -206,6 +271,23 @@ public class MainActivity extends AppCompatActivity {
         bluetoothGatt.disconnect();
         bluetoothGatt = null;
     }
+
+    public BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
+        @Override
+        public void onLeScan(final BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    String dt = " Name: " + bluetoothDevice.getName() +
+                            " Address: " + bluetoothDevice.getAddress();
+                    String mac = bluetoothDevice.getAddress();
+                    if(mac.contains(MAC_BLE)){
+                        tvStatus.setBackgroundResource(R.drawable.staus_bluetooth_online);
+                    }
+                }
+            });
+        }
+    };
 
     private final BluetoothGattCallback gattCallback = new BluetoothGattCallback() {
         @Override
@@ -292,20 +374,24 @@ public class MainActivity extends AppCompatActivity {
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             final byte[] data = characteristic.getValue();
             try {
+
                 String dataReadBLE =  new String(data, "UTF-8");
+                sendBroadCast(dataReadBLE);
                 Log.i(TAG, "Value Decimal: " + dataReadBLE);
-                DeviceRFID rfid = new DeviceRFID(dataReadBLE + String.valueOf(i), "Đã tìm thấy", "May Sieu Am 2");
-                rfidList.add(rfid);
-                adapterRFID.notifyDataSetChanged();
-                //lvDevice.setAdapter(adapterRFID);
-               // adapterRFID.s
-                //lvDevice.notify();
-                i++;
             }  catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            bluetoothGatt.setCharacteristicNotification(characteristic, true);
+            //bluetoothGatt.setCharacteristicNotification(characteristic, true);
         }
     };
-    int i= 0;
+
+    private void sendBroadCast(String s){
+        Intent intent = new Intent();
+        intent.setAction(ACTION);
+        Bundle bundle = new Bundle();
+        bundle.putString(KEY, s);
+        intent.putExtras(bundle);
+        sendBroadcast(intent);
+    }
+
 }
