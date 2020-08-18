@@ -1,4 +1,5 @@
 #include "headerFile.h"
+#define ENABLE false
 
 SoftwareSerial readerSerial(D2, D3); // RX, TX
 String dataReader = "";
@@ -26,11 +27,11 @@ void loop() {
     if (dataReader.length() <= 28) {
       char c = readerSerial.read();
       dataReader += hexToASCII(c);
-      Serial.print(c):
+      //Serial.print(c);
     }
     else {
-      Serial.println():
-      //Serial.println("Data Reader 1: " + dataReader + "  len: " + String(dataReader.length()));
+      //Serial.println():
+      Serial.println("Data Reader 1: " + dataReader + "  len: " + String(dataReader.length()));
       char c = readerSerial.read();
     }
     timeout = 0;
@@ -49,7 +50,8 @@ void loop() {
     dataReader = "";
     timeout = 0;
   }
-  if (timeout == 5000) {
+  
+  if (timeout == 5000 && ENABLE) {
     Node* head_data_temp = head_data;
     while (head_data_temp != NULL) {
       String data = head_data_temp->sNodes_Data;

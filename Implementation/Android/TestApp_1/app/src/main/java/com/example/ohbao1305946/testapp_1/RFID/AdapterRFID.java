@@ -57,11 +57,9 @@ public class AdapterRFID extends BaseAdapter {
 
 
         String sMTB = myDeviceRFIDList.get(position).getMaDevice();
-        if(sMTB.length() > 10) {
-            viewHolder.matv.setText("Mã thiết bị: " + sMTB.substring(sMTB.length() - 5));
-            viewHolder.nametv.setText("Tên thiết bị: " + myDeviceRFIDList.get(position).getNameDevice());
-            viewHolder.statustv.setText("Vị trí: " + myDeviceRFIDList.get(position).getStatusDevice());
-        }
+        viewHolder.matv.setText("Mã thiết bị: " + sMTB);
+        viewHolder.nametv.setText("Tên thiết bị: " + myDeviceRFIDList.get(position).getNameDevice());
+        viewHolder.statustv.setText("Trong Kho: " + myDeviceRFIDList.get(position).getStatusDevice());
         // Mapping component
 //        TextView matv = (TextView) view.findViewById(R.id.textView_MaThietBi);
 //        TextView statustv = (TextView) view.findViewById(R.id.textView_status);

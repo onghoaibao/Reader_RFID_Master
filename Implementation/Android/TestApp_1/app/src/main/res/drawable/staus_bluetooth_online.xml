@@ -8,6 +8,6 @@
         android:startColor="#06f239"
         android:type="linear" />
     <size
-        android:width="40dp"
-        android:height="40dp" />
+        android:width="59dp"
+        android:height="59dp" />
 </shape>

@@ -36,11 +36,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ohbao1305946.testapp_1.BluetoothLE.BLEConnection;
 import com.example.ohbao1305946.testapp_1.BluetoothLE.BLEDevice;
+import com.example.ohbao1305946.testapp_1.CSVModule.CSVFileModule;
+import com.example.ohbao1305946.testapp_1.GoogleSheet.GoogleSheetModule;
 import com.example.ohbao1305946.testapp_1.RFID.AdapterRFID;
 import com.example.ohbao1305946.testapp_1.RFID.DeviceRFID;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -52,6 +65,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
+    private boolean enableConnect = false;
+    private List<String> revDataList = new ArrayList<>();
 
     private static final String TAG = "SHOW";
     private static final int REQUEST_ENABLE_BT = 1;
@@ -83,23 +98,23 @@ public class MainActivity extends AppCompatActivity {
 
     private final String ACTION = "com.example.ohbao1305946.testapp_1.ACTION";
     private final String KEY = "BLE";
+    private List<String> ListOutdData = new ArrayList<>();
 
-
-    private final String MAC_BLE = "9C:A5:25:98:F8:69";
+    private final String MAC_BLE = "9C:A5:25:98:F4:BB";
     private boolean StatusConnect;
     private BroadcastReceiver receiver;
     private TextView tvStatus;
+
+    private CSVFileModule csvFileModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initMappingComponent();
-        rfidList.clear();
-        adapterRFID = new AdapterRFID(MainActivity.this, R.layout.rfid_layout, rfidList);
-        lvDevice.setAdapter(adapterRFID);
+        readDataBase();
 
+        initMappingComponent();
 
         initBluetoothLE();
 
@@ -128,13 +143,17 @@ public class MainActivity extends AppCompatActivity {
                 //do something based on the intent's action
                 switch (intent.getAction()){
                     case ACTION:
+                        //Log.i(TAG, " --------------------- onReceive ----------------------");
                         String data = intent.getExtras().get(KEY).toString();
-                        Log.i(TAG, " --------------------- onReceive ----------------------");
-                        Log.i(TAG, "Data: " + data);
-                        DeviceRFID d = new DeviceRFID(data,"True",
-                                "May Sieu Am 1");
-                        rfidList.add(d);
-                        adapterRFID.notifyDataSetChanged();
+                        if(!revDataList.contains(data)) {
+                            revDataList.add(data);
+                            Log.i(TAG, "Data: " + data);
+                            DeviceRFID d = new DeviceRFID(data, "Có",
+                                    "May Sieu Am 1");
+                            csvFileModule.appendDataToCSV(data);
+                            rfidList.add(d);
+                            adapterRFID.notifyDataSetChanged();
+                        }
                         break;
                 }
             }
@@ -176,6 +195,9 @@ public class MainActivity extends AppCompatActivity {
         BTconnect = (Button) findViewById(R.id.BTconnectCPN);
         lvDevice = (ListView) findViewById(R.id.lvDeviceRFID);
         tvStatus = (TextView) findViewById(R.id.tvStatusOn_Off);
+        rfidList.clear();
+        adapterRFID = new AdapterRFID(MainActivity.this, R.layout.rfid_layout, rfidList);
+        lvDevice.setAdapter(adapterRFID);
     }
 
     private void ButtonEventClearData(){
@@ -191,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void eventStartBLEScanning(){
+        Log.i("SHOW","Response is: "+ ListOutdData);
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(getApplicationContext(), "Xin vui lòng bật quyền vị trị", Toast.LENGTH_LONG).show();
@@ -223,19 +246,33 @@ public class MainActivity extends AppCompatActivity {
         BTconnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isConnection) {
-                    connectToBLE();
-                    BTconnect.setText("Disconnect");
-                    BTClear.setEnabled(false);
-                    BTscan.setEnabled(false);
-                    isConnection = false;
+                if(!isScan){
+                    Toast.makeText(MainActivity.this, "Please stop scanning !!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else if(!enableConnect){
+                    Toast.makeText(MainActivity.this, "Could not found the device !!!",
+                            Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    disconnect();
-                    BTconnect.setText("Connect");
-                    BTClear.setEnabled(true);
-                    BTscan.setEnabled(true);
-                    isConnection = true;
+                    if(isConnection) {
+                        csvFileModule = new CSVFileModule();
+                        csvFileModule.WriteCSVFile();
+                        connectToBLE();
+                        BTconnect.setText("Disconnect");
+                        BTClear.setEnabled(false);
+                        BTscan.setEnabled(false);
+                        isConnection = false;
+                    }
+                    else{
+                        disconnect();
+                        csvFileModule.updateDataCSV();
+                        csvFileModule.closeCSV();
+                        BTconnect.setText("Connect");
+                        BTClear.setEnabled(true);
+                        BTscan.setEnabled(true);
+                        isConnection = true;
+                    }
                 }
             }
         });
@@ -273,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
+
         @Override
         public void onLeScan(final BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
             runOnUiThread(new Runnable() {
@@ -280,9 +318,11 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     String dt = " Name: " + bluetoothDevice.getName() +
                             " Address: " + bluetoothDevice.getAddress();
+                    Log.i(TAG, "Thong tin: " + dt);
                     String mac = bluetoothDevice.getAddress();
                     if(mac.contains(MAC_BLE)){
                         tvStatus.setBackgroundResource(R.drawable.staus_bluetooth_online);
+                        enableConnect = true;
                     }
                 }
             });
@@ -376,7 +416,9 @@ public class MainActivity extends AppCompatActivity {
             try {
 
                 String dataReadBLE =  new String(data, "UTF-8");
-                sendBroadCast(dataReadBLE);
+                if(dataReadBLE.length() == 4) {
+                    sendBroadCast(dataReadBLE);
+                }
                 Log.i(TAG, "Value Decimal: " + dataReadBLE);
             }  catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -392,6 +434,42 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString(KEY, s);
         intent.putExtras(bundle);
         sendBroadcast(intent);
+    }
+
+    private void readDataBase(){
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://script.google.com/macros/s/AKfycbw4HUZNWeNL7D15dxpteRobaDhXIFe0uNnH3abATzkXAl_aZz0/exec";
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.i("SHOW","Response is: "+ response);
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            String dt = obj.get("data").toString();
+                            dt = dt.replace("[", "");
+                            dt = dt.replace("]", "");
+                            dt = dt.replace("\"", "");
+                            for (String d : dt.split(",")){
+                                Log.i("SHOW","Response is: " + d);
+                                ListOutdData.add(d);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("SHOW","cannot work !!");
+            }
+        });
+        queue.add(stringRequest);
     }
 
 }

@@ -30,6 +30,7 @@ void setupWiFi() {
   String _ssid_ = getSSID_WIFI();
   String _pass_ = getPASS_WIFI();
 
+
   WiFi.mode(WIFI_AP_STA);
   WiFi.softAP(NAME_WIFI, PASS_WFI);
   WiFi.begin(ssid, pass);

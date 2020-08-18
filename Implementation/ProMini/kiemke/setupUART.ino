@@ -1,20 +1,22 @@
 #include "Header.h"
 
 void setupRFID() {
-  RFID.begin(112500);
+  RFID.begin(115200);
+  pinMode(RX_RFID, INPUT);
+  pinMode(TX_RFID, OUTPUT);
 }
-
-
 
 void readDataRFID() {
   while (RFID.available() > 0) {
-    if (dataReader.length() <= 28) {
+    if (dataReader.length() <= 26) {
       char c = RFID.read();
-      dataReader += hexToASCII(c);
-      Serial.print(c);
+      String s = hexToASCII((int)c);
+      dataReader += s;
+      //Serial.println(s);
     }
     else {
-      Serial.println("Data Reader 1: " + dataReader + "  len: " + String(dataReader.length()));
+      //Serial.println("Data Reader 1: " + dataReader.substring(4) + "  len: " + String(dataReader.length()));
+      //dataReader = "";
       char c = RFID.read();
     }
   }
@@ -44,6 +46,9 @@ String hexToASCII(unsigned long n) {
     sOut += (char)('0');
   }
   sOut += String(str);
-
+  if (sOut.length() == 2) {
+    return sOut;
+  }
+  sOut = sOut.substring(sOut.length() - 2, sOut.length());
   return sOut;
 }

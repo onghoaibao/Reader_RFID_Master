@@ -1,11 +1,12 @@
 #include "Header.h"
-
+const byte rs = 6;
 void setupBLE103() {
-  pinMode(9, OUTPUT);
-  digitalWrite(9, 1);
+  pinMode(rs, OUTPUT);
+  digitalWrite(rs, 1);
   BLE103.begin(57600);
   delay(2000);
   modeSlave();
+  //iBeaconMode();
 }
 
 void readDataBLE() {
@@ -40,6 +41,24 @@ void resetBLE() {
   digitalWrite(9, 1);
   delay(100);
   readDataBLE();
+}
+
+// IBEACON mode
+String IBEACON_COMMAND = "AT+IBEACON=B9407F30F5F8466EAFF925556B57FE6D,1234,5467,175";
+
+void iBeaconMode() {
+  BLE103.print("+++a");
+  delay(1000);
+  sendCommandAT("AT+MODE=B");
+  delay(1000);
+  sendCommandAT("AT+Z");
+  delay(1000);
+  BLE103.print("+++a");
+  delay(1000);
+  sendCommandAT(IBEACON_COMMAND);
+  delay(1000);
+  sendCommandAT("AT+Z");
+  delay(1000);
 }
 
 /*-------------------- SLAVE MODE --------------------*/
