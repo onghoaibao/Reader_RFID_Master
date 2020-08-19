@@ -51,7 +51,7 @@ void loop() {
     timeout = 0;
   }
   
-  if (timeout == 5000 && ENABLE) {
+  if (timeout == 30000 && ENABLE) {
     Node* head_data_temp = head_data;
     while (head_data_temp != NULL) {
       String data = head_data_temp->sNodes_Data;

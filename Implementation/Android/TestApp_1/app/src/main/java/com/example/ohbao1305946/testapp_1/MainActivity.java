@@ -58,7 +58,9 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private Button BTClear;
     private Button BTscan;
     private Button BTconnect;
+    private TextView TVCounter;
 
     // Declare control variable
     boolean isScan = true;
@@ -97,8 +100,11 @@ public class MainActivity extends AppCompatActivity {
     private static final UUID CHARACTERISTIC_UUID_WRITE = UUID.fromString("0003CDD2-0000-1000-8000-00805F9B0131");
 
     private final String ACTION = "com.example.ohbao1305946.testapp_1.ACTION";
+    private final String ACTION_1 = "com.example.ohbao1305946.testapp_1.CONNECTED";
     private final String KEY = "BLE";
-    private List<String> ListOutdData = new ArrayList<>();
+    private final String KEY1 = "CON";
+    private List<String> ListOutdDataCode = new ArrayList<>();
+    private Map<String, String> mapOutData = new HashMap();
 
     private final String MAC_BLE = "9C:A5:25:98:F4:BB";
     private boolean StatusConnect;
@@ -137,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
     private void BroadReceiverBLE103(){
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION);
+        filter.addAction(ACTION_1);
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -144,15 +151,31 @@ public class MainActivity extends AppCompatActivity {
                 switch (intent.getAction()){
                     case ACTION:
                         //Log.i(TAG, " --------------------- onReceive ----------------------");
-                        String data = intent.getExtras().get(KEY).toString();
-                        if(!revDataList.contains(data)) {
-                            revDataList.add(data);
-                            Log.i(TAG, "Data: " + data);
-                            DeviceRFID d = new DeviceRFID(data, "Có",
-                                    "May Sieu Am 1");
-                            csvFileModule.appendDataToCSV(data);
+                        String sCode = intent.getExtras().get(KEY).toString();
+                        if(!revDataList.contains(sCode) && ListOutdDataCode.contains(sCode)) {
+                            revDataList.add(sCode);
+                            tvStatus.setText(String.valueOf(revDataList.size()) +
+                                            "/" + String.valueOf(ListOutdDataCode.size()));
+                            Log.i(TAG, "Data: " + sCode);
+                            DeviceRFID d = new DeviceRFID(sCode, "Có",
+                                    mapOutData.get(sCode));
+                            csvFileModule.appendDataToCSV(sCode, mapOutData.get(sCode), "Da Tim Thay");
                             rfidList.add(d);
                             adapterRFID.notifyDataSetChanged();
+                        }
+                        break;
+
+                    case ACTION_1:
+                        String data1 = intent.getExtras().get(KEY1).toString();
+                        Log.i(TAG, "Device connected !!!");
+                        if(data1.contains("PASS")) {
+                            Toast.makeText(MainActivity.this, "Device connected !!!", Toast.LENGTH_LONG).show();
+                        }
+                        else if(data1.contains("DIS")){
+                            Toast.makeText(MainActivity.this, "File is Saved In 0MedicalCSV Folder", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this, "Device Can Not Connect !!!", Toast.LENGTH_LONG).show();
                         }
                         break;
                 }
@@ -169,6 +192,15 @@ public class MainActivity extends AppCompatActivity {
             receiver = null;
         }
         super.onDestroy();
+    }
+
+    private void sendBroadCast(String s, String action, String key){
+        Intent intent = new Intent();
+        intent.setAction(action);
+        Bundle bundle = new Bundle();
+        bundle.putString(key, s);
+        intent.putExtras(bundle);
+        sendBroadcast(intent);
     }
 
     @Override
@@ -194,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
         BTscan = (Button) findViewById(R.id.BTScan);
         BTconnect = (Button) findViewById(R.id.BTconnectCPN);
         lvDevice = (ListView) findViewById(R.id.lvDeviceRFID);
-        tvStatus = (TextView) findViewById(R.id.tvStatusOn_Off);
+        tvStatus = (TextView) findViewById(R.id.tvCouter);
         rfidList.clear();
         adapterRFID = new AdapterRFID(MainActivity.this, R.layout.rfid_layout, rfidList);
         lvDevice.setAdapter(adapterRFID);
@@ -205,15 +237,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!rfidList.isEmpty()) {
+                    revDataList.clear();
                     rfidList.clear();
                     adapterRFID.notifyDataSetChanged();
+                    tvStatus.setText("0/" + String.valueOf(ListOutdDataCode.size()));
                 }
             }
         });
     }
 
     private void eventStartBLEScanning(){
-        Log.i("SHOW","Response is: "+ ListOutdData);
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(getApplicationContext(), "Xin vui lòng bật quyền vị trị", Toast.LENGTH_LONG).show();
@@ -229,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
             mBluetoothAdapter.stopLeScan(leScanCallback);
             Log.i(TAG, "Stop Scan");
             isScan = true;
-            BTscan.setText("Start");
+            BTscan.setText("Scan");
         }
     }
 
@@ -266,6 +299,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else{
                         disconnect();
+
+                        for(String sCode : ListOutdDataCode){
+                           if(!revDataList.contains(sCode)){
+                               csvFileModule.appendDataToCSV(sCode, mapOutData.get(sCode), "Khong Tim Thay");
+                           }
+                        }
                         csvFileModule.updateDataCSV();
                         csvFileModule.closeCSV();
                         BTconnect.setText("Connect");
@@ -341,6 +380,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 StatusConnect = false;
                 Log.i(TAG, "Disconnected ");
+                sendBroadCast("DIS", ACTION_1, KEY1);
                 gatt.close();
             }
         }
@@ -360,8 +400,10 @@ public class MainActivity extends AppCompatActivity {
 
                     if (gatt.setCharacteristicNotification(characteristic, true) == true) {
                         Log.i(TAG, "setCharacteristicNotification SUCCESS !");
+                        sendBroadCast("PASS", ACTION_1, KEY1);
                     }else {
                         Log.d(TAG, "setCharacteristicNotification FAILURE!");
+                        sendBroadCast("FAIL", ACTION_1, KEY1);
                     }
                     BluetoothGattDescriptor descriptor = characteristic.getDescriptors().get(0);
                     if (0 != (characteristic.getProperties() & BluetoothGattCharacteristic.PROPERTY_INDICATE)) {
@@ -417,7 +459,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String dataReadBLE =  new String(data, "UTF-8");
                 if(dataReadBLE.length() == 4) {
-                    sendBroadCast(dataReadBLE);
+                    sendBroadCast(dataReadBLE, ACTION, KEY);
                 }
                 Log.i(TAG, "Value Decimal: " + dataReadBLE);
             }  catch (UnsupportedEncodingException e) {
@@ -427,14 +469,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void sendBroadCast(String s){
-        Intent intent = new Intent();
-        intent.setAction(ACTION);
-        Bundle bundle = new Bundle();
-        bundle.putString(KEY, s);
-        intent.putExtras(bundle);
-        sendBroadcast(intent);
-    }
+
 
     private void readDataBase(){
 
@@ -450,14 +485,16 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("SHOW","Response is: "+ response);
                         try {
                             JSONObject obj = new JSONObject(response);
-                            String dt = obj.get("data").toString();
-                            dt = dt.replace("[", "");
-                            dt = dt.replace("]", "");
-                            dt = dt.replace("\"", "");
-                            for (String d : dt.split(",")){
-                                Log.i("SHOW","Response is: " + d);
-                                ListOutdData.add(d);
+                            JSONArray jsonArrayCode = obj.getJSONArray("DataCode");
+                            JSONArray jsonArrayName = obj.getJSONArray("DataName");
+
+                            for(int i=0; i<jsonArrayName.length(); i++) {
+                                Log.i("SHOW", "Code: " + jsonArrayCode.getString(i) +
+                                                        " - Name: " + jsonArrayName.getString(i));
+                                ListOutdDataCode.add(jsonArrayCode.getString(i));
+                                mapOutData.put(jsonArrayCode.getString(i), jsonArrayName.getString(i));
                             }
+                            tvStatus.setText("0/" + String.valueOf(jsonArrayCode.length()));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -35,14 +35,22 @@ public class CSVFileModule {
         Log.i("SHOW", "Path: " + csv);
         try {
             writer = new CSVWriter(new FileWriter(csv));
+            createHeader("Ma Thiet Bi", "Ten Thiet Bi", "Trang Thai");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void appendDataToCSV(String sData){
+    public void appendDataToCSV(String sName, String sCode, String status){
         if(writer != null){
-            data.add(new String[]{sData});
+            data.add(new String[]{sName, sCode, status});
+        }
+    }
+
+    public void createHeader(String sName, String sCode, String status){
+        if(writer != null){
+            data.add(new String[]{sName, sCode, status});
         }
     }
 

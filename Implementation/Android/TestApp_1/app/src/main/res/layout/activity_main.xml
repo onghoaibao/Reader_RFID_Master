@@ -22,13 +22,13 @@
             android:layout_height="60dp"
             >
             <TextView
-                android:id="@+id/tvStatusOn_Off"
+                android:id="@+id/tvCouter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:textColor="#000000"
-                android:textSize="15dp"
-                android:text="100/100"
+                android:textSize="16dp"
+                android:text="0/0"
                 android:gravity="center"
                 android:background="@drawable/staus_bluetooth_online_red"/>
 
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/tvStatusOn_Off"
+                android:layout_toEndOf="@+id/tvCouter"
                 android:gravity="center"
                 android:text="KIỂM KÊ THIẾT BỊ"
                 android:textColor="#ffffff"
@@ -81,7 +81,7 @@
         android:id="@+id/BTScan"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:text="Start"
+        android:text="Scan"
         android:textSize="16dp"
         android:gravity="center"
         android:background="@drawable/button_control"

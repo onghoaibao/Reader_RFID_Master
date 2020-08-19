@@ -29,6 +29,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,15 +55,26 @@ public class MainJFrame extends javax.swing.JFrame {
     public static EditDeviceGUI editDeviceGUI = new EditDeviceGUI();
     int iRow = 0;
 
-    private final LoggingGUI loggingGUI = new LoggingGUI();
-
+    private final LoggingGUI loggingGUI;
+    private SheetsQuickstart quickstart;
+    private List<String> lAccount = new ArrayList<>();
     public MainJFrame() {
 
         getContentPane().setBackground(Color.WHITE);
         scrollpane = new JScrollPane(jTableData);
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
-        eventWindowClose();
+        eventWindowClose();   
+        try {
+            quickstart = new SheetsQuickstart();
+            lAccount = quickstart.getListAccount();
+        } catch (GeneralSecurityException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        loggingGUI = new LoggingGUI(lAccount);
         loggingGUI.setAlwaysOnTop(true);
         loggingGUI.setVisible(true);
         jPanel1Modify.setVisible(false);
@@ -430,7 +442,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jTableData.setShowHorizontalLines(true); // only HorizontalLines
         jTableData.setShowVerticalLines(true); //  only VerticalLines
         jTableData.setShowGrid(true);          // show Horizontal and Vertical
-
+        jTableData.getTableHeader().disable();
         dm = new DefaultTableModel() {
             public Class<String> getColumnClass(int columnIndex) {
                 return String.class;
@@ -462,14 +474,14 @@ public class MainJFrame extends javax.swing.JFrame {
         }
 
         jTableData.getColumnModel().getColumn(0).setPreferredWidth(5);
-        jTableData.getColumnModel().getColumn(1).setPreferredWidth(250);
-        jTableData.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jTableData.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jTableData.getColumnModel().getColumn(2).setPreferredWidth(350);
         jTableData.getColumnModel().getColumn(3).setPreferredWidth(200);
         jTableData.getColumnModel().getColumn(4).setPreferredWidth(90);
-        jTableData.getColumnModel().getColumn(5).setPreferredWidth(150);
+        jTableData.getColumnModel().getColumn(5).setPreferredWidth(200);
         jTableData.getColumnModel().getColumn(6).setPreferredWidth(150);
-        jTableData.getColumnModel().getColumn(7).setPreferredWidth(220);
-        jTableData.getColumnModel().getColumn(8).setPreferredWidth(200);
+        jTableData.getColumnModel().getColumn(7).setPreferredWidth(270);
+        jTableData.getColumnModel().getColumn(8).setPreferredWidth(150);
         jTableData.setDefaultRenderer(String.class, new MultiLineTableCellRenderer());
         TableRowSorter<? extends TableModel> sort = new TableRowSorter<DefaultTableModel>(dm);
         jTableData.setRowSorter(sort);
@@ -573,6 +585,7 @@ public class MainJFrame extends javax.swing.JFrame {
                             y++;
                         }
                         loggingGUI.dispose();
+                        jTableData.disable();
                         service__.shutdown();
                     } catch (GeneralSecurityException ex) {
                         Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);

@@ -32,26 +32,19 @@ public class LoggingGUI extends javax.swing.JFrame {
      */
     private int isStatus = 0;
     private SheetsQuickstart quickstart;
-    private List<String> arrList = new ArrayList<>();
+    private List<String> lAccount = new ArrayList<>();
 
     private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
     private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
     private int width = this.getWidth() / 2 - 100;
     private int height = this.getHeight() / 2 - 200;
 
-    public LoggingGUI() {
-        try {
-            quickstart = new SheetsQuickstart();
-            arrList = quickstart.getListAccount();
-            initComponents();
-            setLocation(screenWidth / 3, screenHeight / 3);
-            eventWindowClose();
-            EventEnterPressed();
-        } catch (GeneralSecurityException ex) {
-            Logger.getLogger(LoggingGUI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(LoggingGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public LoggingGUI(List<String> lAccount) {
+        this.lAccount = lAccount;
+        initComponents();
+        setLocation(screenWidth / 3, screenHeight / 3);
+        eventWindowClose();
+        EventEnterPressed();
     }
 
     /**
@@ -190,7 +183,7 @@ public class LoggingGUI extends javax.swing.JFrame {
     private void jButtonTruyCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTruyCapActionPerformed
         // TODO add your handling code here:         
         if (jTextField1NguoiDung.getText().contains("admin")
-                && arrList.contains(jPasswordField1.getText())) {
+                && lAccount.contains(jPasswordField1.getText())) {
             System.out.println("Success loggin");
             isStatus = 1;
         } else {
@@ -239,7 +232,7 @@ public class LoggingGUI extends javax.swing.JFrame {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     System.out.println("Enter is pressed ");
                     if (jTextField1NguoiDung.getText().contains("admin")
-                            && arrList.contains(jPasswordField1.getText())) {
+                            && lAccount.contains(jPasswordField1.getText())) {
                         System.out.println("Success loggin");
                         isStatus = 1;
                     } else {

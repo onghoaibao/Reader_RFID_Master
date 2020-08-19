@@ -229,9 +229,12 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
                     System.out.println("Tao da click Chap Nhan");
                     //setContent(jText_Ten.getText(), jTextNgaySX.getText(), jTextTinhTrang.getText(), jTextCode.getText());
                     SheetsQuickstart sheetAPI = new SheetsQuickstart();
-                    String sName1 = jText_Ten.getText().replace(",", "\n");
-                    String sName2 = jTextNgaySX.getText().replace(",", "\n");
-                    String sName3 = jTextTinhTrang.getText().replace(",", "\n");
+                    String sName1 = jText_Ten.getText().replace(", ", "\n");
+                           sName1 = sName1.replace(",", "\n");
+                    String sName2 = jTextNgaySX.getText().replace(", ", "\n");
+                           sName2 = sName2.replace(",", "\n");
+                    String sName3 = jTextTinhTrang.getText().replace(", ", "\n");
+                           sName3 = sName3.replace(",", "\n");
                     
                     sheetAPI.createNewItemOnSheet(jTextCode.getText(),
                             sName1,
