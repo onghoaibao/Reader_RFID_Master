@@ -65,4 +65,14 @@ String getURL(String maThietBi, String properties_name, String properties_sx,
               String trangthai, String dvMuon, String ngayTra, String lsdc, String hientai);
 String getStatusMaThietBi(String maThietbi);
 void client_Sendata(String maThietbi, String pos);
+
+// Sim800L
+SoftwareSerial SIM800L(D6, D7); // RX, TX
+void sendAT_Sim800l(String cmd);
+void readInfoSim800l();
+void sendMessage();
+
+// Reader RFID
+SoftwareSerial readerSerial(D2, D3); // RX, TX
+void initReaderRFID();
 #endif

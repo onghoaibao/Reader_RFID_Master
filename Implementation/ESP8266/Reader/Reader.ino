@@ -1,19 +1,18 @@
 #include "headerFile.h"
 #define ENABLE false
 
-SoftwareSerial readerSerial(D2, D3); // RX, TX
+
 String dataReader = "";
 long timeout = 0;
 bool st = false;
 
 void setup() {
-  // put your setup code here, to run once:
+  delay(1000);
   Serial.begin(115200);
+  Serial.println("\n-------------------\n");
+  initSim800l();
+  initReaderRFID();
   SPIFFS.begin();
-  readerSerial.begin(115200);
-  pinMode(D2, INPUT);
-  pinMode(D3, OUTPUT);
-  Serial.println();
   setupWiFi();
   Serial.println("\n------ Hello ------");
 }
@@ -27,10 +26,8 @@ void loop() {
     if (dataReader.length() <= 28) {
       char c = readerSerial.read();
       dataReader += hexToASCII(c);
-      //Serial.print(c);
     }
     else {
-      //Serial.println():
       Serial.println("Data Reader 1: " + dataReader + "  len: " + String(dataReader.length()));
       char c = readerSerial.read();
     }

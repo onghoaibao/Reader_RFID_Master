@@ -23,7 +23,7 @@ const int __httpsPort__ = 443; //the https port is same
 
 
 void setupWiFi() {
-  read200Line();
+  //read200Line();
   Serial.println("Connecting to ");
   Serial.println(ssid);
 
