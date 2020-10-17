@@ -10,14 +10,23 @@
 #include <SoftwareSerial.h>
 #include <WiFiClientSecure.h>
 
+
+#define ENABLE false
+String dataReader = "";
+long timeout = 0;
+bool st = false;
+
 // Init server and client
 ESP8266WebServer sv(9090);
 
-#define SIZE 60
+#define SIZE 200
 #define SIZE_SSID 30
 #define SIZE_PASS 20
 #define ADDRESS_SSID_WIFI 0 
 #define ADDRESS_PASS_WIFI 35
+#define ADDRESS_PHONE_1   70
+#define ADDRESS_PHONE_2   85
+#define ADDRESS_PHONE_3   100
 
 void serialFlush();
 String hexToASCII(unsigned long n);
@@ -26,6 +35,7 @@ String hexToASCII(unsigned long n);
 void setupWiFi();
 void handleClientServer();
 void client_Sendata();
+String scanWifi();
 
 //
 typedef struct Nodes
@@ -48,6 +58,7 @@ String getStringFile(String fileName);
 void removeContentFile(String fileName);
 void listALlFile(String path);
 String read200Line();
+void saveNumberPhone(String number1, String number2, String number3);
 
 //EEPROM
 void savePASSWifi(String pass);

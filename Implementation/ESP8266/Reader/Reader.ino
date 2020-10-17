@@ -1,15 +1,9 @@
 #include "headerFile.h"
-#define ENABLE false
-
-
-String dataReader = "";
-long timeout = 0;
-bool st = false;
 
 void setup() {
-  delay(1000);
+  delay(200);
   Serial.begin(115200);
-  Serial.println("\n-------------------\n");
+  Serial.println("\n-----------------------------------\n");
   initSim800l();
   initReaderRFID();
   SPIFFS.begin();
