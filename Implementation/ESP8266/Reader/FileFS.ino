@@ -95,19 +95,6 @@ void saveSSIDWifi(String ssid){
   writeEEPROM(ssid, ADDRESS_SSID_WIFI, SIZE_SSID);
 }
 
-void saveNumberPhone(String number1, String number2, String number3){
-  writeEEPROM(number1, ADDRESS_PHONE_1, 15);
-  writeEEPROM(number2, ADDRESS_PHONE_2, 15);
-  writeEEPROM(number3, ADDRESS_PHONE_3, 15);
-
-  String n1 = readEEPROM(ADDRESS_PHONE_1, 15);
-  String n2 = readEEPROM(ADDRESS_PHONE_2, 15);
-  String n3 = readEEPROM(ADDRESS_PHONE_3, 15);
-  Serial.println("n1= " + String(n1));
-  Serial.println("n2= " + String(n2));
-  Serial.println("n3= " + String(n3));
-}
-
 void savePASSWifi(String pass){
   writeEEPROM(pass, ADDRESS_PASS_WIFI, SIZE_PASS);
 }

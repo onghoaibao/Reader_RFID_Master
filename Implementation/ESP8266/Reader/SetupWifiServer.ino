@@ -1,27 +1,15 @@
 #include "headerFile.h"
 
-// declare variables for the google sheet
-const char* NAME_WIFI_ESP8266 = "Medical_Wifi";
-const char* PASS_WIFI_ESP8266  = "123456789";
-
-String url = "/macros/s/AKfycbyv6koMALyPSHIlVG8pp0ysDgmIaA-csMx4bB05utsQZXlJKN0/exec?tag=ohbao&value=1233";
-
-//Wifi
-//String ssid =  " BoBa2_4GHz";
-//String pass =  "Thang06@";
-
-String bLogin = "";
-const char* __host__ = "script.google.com";
-const int __httpsPort__ = 443; //the https port is same
-
-
 void setupWiFi() {
   //read200Line();
+  Serial.println("---- Dang cai dat Wifi ---- ");
   Serial.println("Connecting to ");
-  //  Serial.println(ssid);
+  Serial.println(ssid);
 
   String _ssid_ = getSSID_WIFI();
   String _pass_ = getPASS_WIFI();
+  _ssid_ = "BoBa2_4GHz";
+  _pass_ = "Thang12@";
 
   WiFi.mode(WIFI_AP_STA);
   WiFi.softAP(NAME_WIFI, PASS_WFI);
@@ -29,7 +17,7 @@ void setupWiFi() {
   int timeout = 0;
   while (WiFi.status() != WL_CONNECTED)
   {
-    if (timeout == 30) {
+    if (timeout == 40) {
       Serial.print("\nCannot Connect to BoBa2_4GHz Wifi\n");
       break;
     }
@@ -49,9 +37,15 @@ void setupWiFi() {
     sv.send(200, "text/html", sSetup);
   });
 
-  sv.on("/setphone", [] {
-    String sSetup = getStringFile("setphone.html");
-    sv.send(200, "text/html", sSetup);
+  sv.on("/connectWifi", [] {
+    String ssid = String(sv.arg("wifi"));
+    String pass = String(sv.arg("pass"));
+    accessWifi(ssid, pass);
+    Serial.println(String("Wifi: ") + ssid + " len: " + String(ssid.length()));
+    Serial.println(String("Pass: ") + pass + " len: " + String(pass.length()));
+    getSSID_WIFI();
+    getPASS_WIFI();
+    sv.send(200, "text/html", "<h1>Wifi Is Connecting</h1>");
   });
 
   sv.on("/transFile", HTTP_ANY, [] {
@@ -73,11 +67,6 @@ void setupWiFi() {
     "<input type='file' name='SelectFile'>"
     "<input type='submit' name='SubmitFile' value='Send File'>"
     "</form>"
-    "<form method='POST' action='/transFile' enctype='multipart/form-data'>"
-    "<h2>Config File setphone.html</h2>"
-    "<input type='file' name='SelectFile'>"
-    "<input type='submit' name='SubmitFile' value='Send File'>"
-    "</form>"
     "</body>"
     "</html");
   }, [] {
@@ -91,32 +80,6 @@ void setupWiFi() {
       saveFile(file.filename, (const char*)file.buf, file.currentSize);
     }
   });
-
-  sv.on("/connectWifi", [] {
-    String ssid = String(sv.arg("wifi"));
-    String pass = String(sv.arg("pass"));
-    accessWifi(ssid, pass);
-    Serial.println(String("Wifi: ") + ssid + " len: " + String(ssid.length()));
-    Serial.println(String("Pass: ") + pass + " len: " + String(pass.length()));
-    getSSID_WIFI();
-    getPASS_WIFI();
-    sv.send(200, "text/html", "<h1>Wifi Is Connecting To " + String(ssid) + "</h1>");
-  });
-
-  sv.on("/getphone", [] {
-    String number1 = String(sv.arg("number1"));
-    String number2 = String(sv.arg("number2"));
-    String number3 = String(sv.arg("number3"));
-    saveNumberPhone(number1, number2, number3);
-    Serial.println(String("number1: ") + number1);
-    Serial.println(String("number2: ") + number2);
-    Serial.println(String("number3: ") + number3);
-    sv.send(200, "text/html", "<h1>Installing number phone: " 
-      + String(number1) + String(" - ")
-      + String(number2) + String(" - ") 
-      + String(number3)+ "</h1>");
-  });
-
   sv.begin();
 }
 
@@ -125,22 +88,22 @@ void handleClientServer() {
 }
 
 int t = 10;
-void client_Sendata(String maThietbi, String pos) {
+void client_Sendata(String code) {
   WiFiClientSecure client;
   client.setInsecure();
-  if (!client.connect(__host__, __httpsPort__)) {
+  if (!client.connect(__host__, __httpsPort__))
+  {
     Serial.println("connection failed");
     client.setInsecure();
     return;
   }
-  String url = "/macros/s/AKfycbxsMad8bqrkqXUkajFobCX3C9-BXrgkPXDoE1QJqN3tprFn7SIo/exec?maThietBi=" + maThietbi + "&vitri=" + pos + String(t);
-  t += 4;
+  String url = "/macros/s/AKfycbw4HUZNWeNL7D15dxpteRobaDhXIFe0uNnH3abATzkXAl_aZz0/exec?code=" + code;
   client.print(String("GET ") + url + " HTTP/1.1\r\n" +
                "Host: " + __host__ + "\r\n" +
                "Connection: close\r\n\r\n");
   Serial.print("Requesting URL: ");
   Serial.println(url);
-  delay(500);
+  delay(2000);
   String section = "header";
   while (client.available())
   {
@@ -150,6 +113,60 @@ void client_Sendata(String maThietbi, String pos) {
   Serial.println();
   Serial.println("closing connection");
   delay(2000);
+}
+
+String getAllDeviveFromDataBase() {
+  WiFiClientSecure client;
+  client.setInsecure();
+  if (!client.connect(__host__, __httpsPort__))
+  {
+    Serial.println("connection failed");
+    client.setInsecure();
+    return "connection failed";
+  }
+//  String url = "/macros/s/AKfycbw4HUZNWeNL7D15dxpteRobaDhXIFe0uNnH3abATzkXAl_aZz0/exec?a=1&b=2";
+//
+//  client.print(String("GET ") + url + " HTTP/1.1\r\n" +
+//               "Host: " + __host__ + "\r\n" +
+//               "Connection: close\r\n\r\n");
+//  Serial.print("Requesting URL: ");
+//  Serial.println(url);
+//  delay(2000);
+//  String section = "header";
+  String sOut = "";
+  long t = 0;
+//  while (client.available() > 0) {
+//    sOut = client.readStringUntil('\r');
+//    Serial.print(sOut);
+//    t++;
+//    delay(1);
+//    if (t >= 5000) {
+//      break;
+//    }
+//  }
+//  Serial.println();
+//  Serial.println("closing connection");
+//  delay(5000);
+  String googleRedirHost = "script.googleusercontent.com";
+  String sRe = "/macros/echo?user_content_key=HpAc6wP1WiiRLN5nHY-HcdHtFcneVifOBpd_1aQ4vAujRO6cVnQVRByyopx6q1_37pRY_hNP5w43YRZr6pILORy0pmLJ3Gslm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnK_8q91JtUDH5ZB6y0798jIGepnT8qi0Fl7OArSVACEmWHkHCeXN3DMQZxWVHugsHxcmFEa6jifgB2pr_kvfBqk&lib=MJA1klEy-fKauGI90ScVSmlGg4jaJxtap";
+  client.print(String("GET ") + sRe + " HTTP/1.1\r\n" +
+               "Host: " + googleRedirHost + "\r\n" +
+               "Connection: close\r\n\r\n");
+  Serial.println(sRe);
+  delay(2000);
+  t = 0;    
+  sOut = "";         
+  while (client.available() > 0) {
+    sOut = client.readStringUntil('\r');
+    Serial.print(sOut);
+    t++;
+    delay(1);
+    if (t >= 5000) {
+      break;
+    }
+  }
+            
+  return sOut;
 }
 
 String getStatusMaThietBi(String maThietbi) {
@@ -187,14 +204,14 @@ String getStatusMaThietBi(String maThietbi) {
 }
 
 String scanWifi() {
-  String sBetween = "";
-  for (int y = 0; y < 3; y++) {
+  String sBetween1 = "";
+  for (int i = 0; i < 3; i++) {
     int num = WiFi.scanNetworks();
     for (int i = 0; i < num; i++) {
       String sSSID = WiFi.SSID(i).c_str();
-      if (sBetween.indexOf(sSSID) == -1)
-        sBetween += String("<option value='") + sSSID + String("'>") + sSSID + String("</option>") + "\n";
+      if (sBetween1.indexOf(sSSID) == -1)
+        sBetween1 += String("<option value='") + sSSID + String("'>") + sSSID + String("</option>") + "\n";
     }
   }
-  return sBetween;
+  return sBetween1;
 }
