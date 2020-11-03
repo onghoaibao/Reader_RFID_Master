@@ -11,7 +11,7 @@ boolean saveFile(String fileName, const char* content, uint16_t len) {
     return false;
   }
   else {
-    f.write(content, len);
+    f.write((const uint8_t*)content, len);
   }
   f.close();
   return true;
@@ -93,6 +93,19 @@ void clearEEPROM(int _address, int _size){
 
 void saveSSIDWifi(String ssid){
   writeEEPROM(ssid, ADDRESS_SSID_WIFI, SIZE_SSID);
+}
+
+void saveNumberPhone(String number1, String number2, String number3){
+  writeEEPROM(number1, ADDRESS_PHONE_1, 15);
+  writeEEPROM(number2, ADDRESS_PHONE_2, 15);
+  writeEEPROM(number3, ADDRESS_PHONE_3, 15);
+
+  String n1 = readEEPROM(ADDRESS_PHONE_1, 15);
+  String n2 = readEEPROM(ADDRESS_PHONE_2, 15);
+  String n3 = readEEPROM(ADDRESS_PHONE_3, 15);
+  Serial.println("n1= " + String(n1));
+  Serial.println("n2= " + String(n2));
+  Serial.println("n3= " + String(n3));
 }
 
 void savePASSWifi(String pass){

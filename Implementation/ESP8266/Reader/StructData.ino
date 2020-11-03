@@ -59,9 +59,9 @@ bool isElementInStruct(String str) {
     String sDT = head_data_temp->sNodes_Data;
     //Serial.println("sDT: " + sDT);
     if (str == sDT) {
-
+      return true;
     }
     head_data_temp = head_data_temp->next;
   }
-  return true;
+  return false;
 }

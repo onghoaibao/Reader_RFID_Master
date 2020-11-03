@@ -1,7 +1,7 @@
 #include "headerFile.h"
 
 void initReaderRFID(){
-  Serial.println("---- Dang cai dat module RFID ----");
+  Serial.println("---- Dang Khoi Dong Module RFID ----");
   RFID.begin(115200);
   pinMode(D2, INPUT);
   pinMode(D3, OUTPUT);  
@@ -14,11 +14,13 @@ void readDataRFID() {
       String s = hexToASCII((int)c);
       dataReader += s;
       //Serial.println(s);
+      timeout = 0;
     }
     else {
-      Serial.println("Data Reader 1: " + dataReader.substring(4) + "  len: " + String(dataReader.length()));
+      //Serial.println("Data Reader 1: " + dataReader.substring(4) + "  len: " + String(dataReader.length()));
       //dataReader = "";
       char c = RFID.read();
+      timeout = 0;
     }
   }
 }
@@ -46,4 +48,9 @@ String hexToASCII(unsigned long n) {
   }
   sOut = sOut.substring(sOut.length() - 2, sOut.length());
   return sOut;
+}
+
+
+String getData() {
+  return dataReader.substring(4);
 }

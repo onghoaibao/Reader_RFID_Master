@@ -9,35 +9,32 @@
 #include <EEPROM.h>
 #include <SoftwareSerial.h>
 #include <WiFiClientSecure.h>
+#include "HTTPSRedirect.h"
+
+#define ENABLE false
+String dataReader = "";
+long timeout = 0;
+bool st = false;
 
 // Init server and client
 ESP8266WebServer sv(9090);
 
-#define SIZE 60
+#define SIZE 200
 #define SIZE_SSID 30
 #define SIZE_PASS 20
 #define ADDRESS_SSID_WIFI 0 
 #define ADDRESS_PASS_WIFI 35
+#define ADDRESS_PHONE_1   70
+#define ADDRESS_PHONE_2   85
+#define ADDRESS_PHONE_3   100
 
 void serialFlush();
 String hexToASCII(unsigned long n);
 
-// declare variables for the google sheet
-const char* NAME_WIFI_ESP8266 = "ESP_Manage";
-const char* PASS_WIFI_ESP8266  = "123456789";
-String url = "/macros/s/AKfycbyv6koMALyPSHIlVG8pp0ysDgmIaA-csMx4bB05utsQZXlJKN0/exec?tag=ohbao&value=1233";
-
-String ssid =  "";
-String pass =  "";
-
-String bLogin = "";
-const char* __host__ = "script.google.com";
-const int __httpsPort__ = 443; //the https port is same
-
+// Setup wifi and init thingspeak
 void setupWiFi();
 void handleClientServer();
-void client_Sendata(String code);
-String getAllDeviveFromDataBase();
+void client_Sendata();
 String scanWifi();
 
 //
@@ -61,6 +58,7 @@ String getStringFile(String fileName);
 void removeContentFile(String fileName);
 void listALlFile(String path);
 String read200Line();
+void saveNumberPhone(String number1, String number2, String number3);
 
 //EEPROM
 void savePASSWifi(String pass);
@@ -77,9 +75,11 @@ void writeEEPROM(String str, int _address, int _SIZE_);
 String getURL(String maThietBi, String properties_name, String properties_sx,
               String trangthai, String dvMuon, String ngayTra, String lsdc, String hientai);
 String getStatusMaThietBi(String maThietbi);
-void client_Sendata(String maThietbi, String pos);
+String client_Sendata(String maThietbi);
+String getAllCodeDevice();
 
 // Sim800L
+String arrPhone[3];
 SoftwareSerial SIM800L(D6, D7); // RX, TX
 void sendAT_Sim800l(String cmd);
 void readInfoSim800l();
@@ -87,8 +87,9 @@ void sendMessage();
 
 // Reader RFID
 SoftwareSerial RFID(D2, D3); // RX, TX
-void readDataRFID();
 void initReaderRFID();
+String getData();
 String hexToASCII(unsigned long n);
+void readDataRFID();
 
 #endif
