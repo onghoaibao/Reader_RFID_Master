@@ -45,7 +45,7 @@ void appendWithoutRepeat(String str){
   while (head_data_temp != NULL) {
     String data = head_data_temp->sNodes_Data;
     //Serial.println("data: " + data);
-    if(str == data){
+    if(str.indexOf(data) != -1 || data.indexOf(str) != -1){
       return;
     }
     head_data_temp = head_data_temp->next;

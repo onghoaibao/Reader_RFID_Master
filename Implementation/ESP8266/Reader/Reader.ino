@@ -2,7 +2,7 @@
 String sCodeDeviceDataBase;
 
 void setup() {
-  delay(2000);
+  delay(1000);
   Serial.begin(115200);
   Serial.println("\n-----------------------------------\n");
   initSim800l();
@@ -30,31 +30,31 @@ void loop() {
     String s1 = dataReader.substring(6, 10);
     String s2 = dataReader.substring(dataReader.length() - 4, dataReader.length());
     if (s1 == s2) {
-      Serial.println("Data Reader IF: " + s1 + " = " + s2 + "  len: " + String(s1.length()) + " - " + String(s2.length()));
-      if (sCodeDeviceDataBase.indexOf(s1) != -1 && !isElementInStruct(s1)) {
+      if (sCodeDeviceDataBase.indexOf(s1) != -1) {
+        Serial.println("Data Reader IF: " + s1 + " = " + s2 + "  len: " + String(s1.length()) + " - " + String(s2.length()));
         appendWithoutRepeat(s1);
       }
     }
     dataReader = "";
   }
-  //delayTimeOut(20000);
-
-  if (timeout == 20000 && true) {
+  
+  if (timeout >= 10000) {
+    bool b = false;
     Node* head_data_temp = head_data;
     while (head_data_temp != NULL && 1) {
       String data = head_data_temp->sNodes_Data;
       String st = client_Sendata(data);
       Serial.println("sCode: " + data + "  sStatus: " + st);
+      if(st.indexOf("False") != -1){
+        Serial.println("Canh Bao Thiet Bi Da Roi Khoi Kho !!!");
+      }
       head_data_temp = head_data_temp->next;
       delay(2000);
+      b = true;
     }
-
-    //    Serial.println("Before del: " );
-    //    displayStruct();
-    deleteList();
-    //    Serial.println("After del: " );
-    //    displayStruct();
-    //    st = true;
+    if (b) {
+      deleteList();
+    }
     serialFlush();
     timeout = 0;
   }
