@@ -3,10 +3,14 @@
 void initSim800l() {
   pinMode(D6, INPUT);
   pinMode(D7, OUTPUT);
+<<<<<<< HEAD
+  Serial.println("---- Dang cai dat module SIM800L---- ");
+=======
   Serial.println("---- Dang Khoi Dong Module SIM800L ----");
   arrPhone[0] = readEEPROM(ADDRESS_PHONE_1, 15);
   arrPhone[1] = readEEPROM(ADDRESS_PHONE_2, 15);
   arrPhone[0] = readEEPROM(ADDRESS_PHONE_3, 15);
+>>>>>>> 51739e87d32bb54539b1557ff83b3ce071b6f19a
   SIM800L.begin(9600);
 
   //delay(1000);

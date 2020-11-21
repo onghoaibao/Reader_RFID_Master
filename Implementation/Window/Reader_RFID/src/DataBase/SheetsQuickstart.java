@@ -49,7 +49,6 @@ public class SheetsQuickstart {
     private static Sheets service;
     private static NetHttpTransport HTTP_TRANSPORT;
     private static final String spreadsheetId = "1td6-VRHm92Tattq2xQC_3PHYRyDZIoMO8XH_dmayQB0";
-
     private static final String spreadsheetIdAcount = "1td6-VRHm92Tattq2xQC_3PHYRyDZIoMO8XH_dmayQB0";
 
     // declare Column
@@ -64,7 +63,10 @@ public class SheetsQuickstart {
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         InputStream in = new FileInputStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
+            System.out.println("Khong tim thay file: " + CREDENTIALS_FILE_PATH);
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+        } else {
+            System.out.println("Tim thay file: " + CREDENTIALS_FILE_PATH);
         }
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
@@ -145,7 +147,7 @@ public class SheetsQuickstart {
             if (values == null || values.isEmpty()) {
                 System.out.println("No data found.");
             } else {
-                System.out.println(" Data " + "  ROW=" +values.size());
+                System.out.println(" Data " + "  ROW=" + values.size());
                 for (List row : values) {
                     Fields fields = new Fields();
                     fields.setField1(row.get(0).toString());
@@ -234,18 +236,18 @@ public class SheetsQuickstart {
         updateInforCell("K" + String.valueOf(rowMTB), isKHO);
     }
 
-    private void updateNumberID(int row){
+    private void updateNumberID(int row) {
         int tr = getRowInSheet() + 1;
-        for(int i = row; i < tr + 1; i++){
+        for (int i = row; i < tr + 1; i++) {
             try {
                 System.out.println("delete row: " + i);
                 updateInforCell("A" + String.valueOf(i), String.valueOf(i - 1));
             } catch (IOException ex) {
                 Logger.getLogger(SheetsQuickstart.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }       
+        }
     }
-    
+
     public boolean editInformationOnSheet(
             String MTB, String TTTB, String NSX, String TTHD,
             String BR, String RT, String LSDC, String POS, String isKHO
@@ -257,20 +259,85 @@ public class SheetsQuickstart {
         System.out.println("rowMTB: " + rowMTB);
         if (rowMTB != -1) {
             updateInforCell("A" + String.valueOf(rowMTB), String.valueOf(rowMTB - 1));
-            updateInforCell("B" + String.valueOf(rowMTB), MTB);
+            if (MTB != old_jTextFieldMaTB) {
+                updateInforCell("B" + String.valueOf(rowMTB), MTB);
+            }
             updateInforCell("C" + String.valueOf(rowMTB), String.valueOf(dtf.format(now)));
-            updateInforCell("D" + String.valueOf(rowMTB), TTTB);
-            updateInforCell("E" + String.valueOf(rowMTB), NSX);
-            updateInforCell("F" + String.valueOf(rowMTB), TTHD);
-            updateInforCell("G" + String.valueOf(rowMTB), BR);
-            updateInforCell("H" + String.valueOf(rowMTB), RT);
-            updateInforCell("I" + String.valueOf(rowMTB), LSDC);
-            updateInforCell("J" + String.valueOf(rowMTB), POS);
+
+            if (TTTB != old_jTextTinhTrang) {
+                updateInforCell("D" + String.valueOf(rowMTB), TTTB);
+            }
+            if (NSX != old_jTextNgaySX) {
+                updateInforCell("E" + String.valueOf(rowMTB), NSX);
+            }
+            if (TTHD != old_jTextTinhTrang) {
+                updateInforCell("F" + String.valueOf(rowMTB), TTHD);
+            }
+            if (BR != old_jTextDVM) {
+                updateInforCell("G" + String.valueOf(rowMTB), BR);
+            }
+            if (RT != old_jTextFieldNgayTra) {
+                updateInforCell("H" + String.valueOf(rowMTB), RT);
+            }
+            if (LSDC != old_jTextFieldLSDC) {
+                updateInforCell("I" + String.valueOf(rowMTB), LSDC);
+            }
+            if (POS != old_jTextFieldHienTai) {
+                updateInforCell("J" + String.valueOf(rowMTB), POS);
+            }
             //updateInforCell("K" + String.valueOf(rowMTB), isKHO);
             return true;
         } else {
             return false;
         }
+    }
+
+    public boolean bookkingDeviceOnSheet(
+            String MTB, String TTTB, String NSX, String TTHD,
+            String BR, String RT, String LSDC, String POS, String isKHO
+    ) throws IOException {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+
+        int rowMTB = getPosMaThietBi(MTB) + 1;
+        System.out.println("rowMTB: " + rowMTB);
+        if (rowMTB != -1) {
+//            updateInforCell("A" + String.valueOf(rowMTB), String.valueOf(rowMTB - 1));
+//            updateInforCell("B" + String.valueOf(rowMTB), MTB);
+//            updateInforCell("C" + String.valueOf(rowMTB), String.valueOf(dtf.format(now)));
+//            updateInforCell("D" + String.valueOf(rowMTB), TTTB);
+//            updateInforCell("E" + String.valueOf(rowMTB), NSX);
+//            updateInforCell("F" + String.valueOf(rowMTB), TTHD);
+            updateInforCell("G" + String.valueOf(rowMTB), BR);
+//            updateInforCell("H" + String.valueOf(rowMTB), RT);
+//            updateInforCell("I" + String.valueOf(rowMTB), LSDC);
+//            updateInforCell("J" + String.valueOf(rowMTB), POS);
+            //updateInforCell("K" + String.valueOf(rowMTB), isKHO);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private String old_jTextFieldMaTB;
+    private String old_jText_Ten;
+    private String old_jTextNgaySX;
+    private String old_jTextTinhTrang;
+    private String old_jTextFieldNgayTra;
+    private String old_jTextFieldLSDC;
+    private String old_jTextFieldHienTai;
+    private String old_jTextDVM;
+
+    public void getContentOld(String MTB, String TTTB, String NSX, String TTHD,
+            String BR, String RT, String LSDC, String POS) {
+        old_jTextFieldMaTB = MTB;
+        old_jText_Ten = TTTB;
+        old_jTextNgaySX = NSX;
+        old_jTextTinhTrang = TTHD;
+        old_jTextDVM = BR;
+        old_jTextFieldNgayTra = RT;
+        old_jTextFieldLSDC = LSDC;
+        old_jTextFieldHienTai = POS;
     }
 
     public boolean deleteRowInSheet(String mtb) {
@@ -283,7 +350,7 @@ public class SheetsQuickstart {
                                     .setSheetId(0)
                                     .setDimension("ROWS")
                                     .setStartIndex(row)
-                                    .setEndIndex(row+ 1)
+                                    .setEndIndex(row + 1)
                             )
                     );
 
@@ -293,7 +360,7 @@ public class SheetsQuickstart {
             BatchUpdateSpreadsheetRequest content = new BatchUpdateSpreadsheetRequest();
             content.setRequests(requests);
             service.spreadsheets().batchUpdate(spreadsheetId, content).execute();
-            
+
             updateNumberID(row);
 
         } catch (IOException ex) {
@@ -315,7 +382,7 @@ public class SheetsQuickstart {
                 = service.spreadsheets().values().update(spreadsheetId, pos, body)
                         .setValueInputOption("RAW")
                         .execute();
-
+        System.out.println("Da cap nhat: " + pos );
     }
 
     public void createNewItemOnSheet(String MTB, String TTTB, String NSX,

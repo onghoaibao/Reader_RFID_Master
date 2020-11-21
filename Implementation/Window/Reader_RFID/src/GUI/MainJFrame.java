@@ -53,18 +53,20 @@ public class MainJFrame extends javax.swing.JFrame {
     public static ThemThietBiMoi bAddDevice = new ThemThietBiMoi();
     public static AddNewDeviceGUI addNewDeviceGUI = new AddNewDeviceGUI();
     public static EditDeviceGUI editDeviceGUI = new EditDeviceGUI();
+    public static BookDeviceGUI bookDeviceGUI = new BookDeviceGUI();
     int iRow = 0;
 
     private final LoggingGUI loggingGUI;
     private SheetsQuickstart quickstart;
     private List<String> lAccount = new ArrayList<>();
+
     public MainJFrame() {
 
         getContentPane().setBackground(Color.WHITE);
         scrollpane = new JScrollPane(jTableData);
         initComponents();
         setExtendedState(this.MAXIMIZED_BOTH);
-        eventWindowClose();   
+        eventWindowClose();
         try {
             quickstart = new SheetsQuickstart();
             lAccount = quickstart.getListAccount();
@@ -73,7 +75,7 @@ public class MainJFrame extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         loggingGUI = new LoggingGUI(lAccount);
         loggingGUI.setAlwaysOnTop(true);
         loggingGUI.setVisible(true);
@@ -82,6 +84,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jButtonChinhSua.setBackground(Color.green);
         jButtonThemMoi.setBackground(Color.green);
         jButtonXoa.setBackground(Color.green);
+        jBtDangKu.setBackground(Color.green);
 
         setTitle("Giam Sat Thiet Bi Y Te");
         configTable();
@@ -109,6 +112,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jButtonThemMoi = new javax.swing.JButton();
         jButtonChinhSua = new javax.swing.JButton();
         jButtonXoa = new javax.swing.JButton();
+        jButtonXoa1 = new javax.swing.JButton();
+        jBtDangKu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButtonReload = new javax.swing.JButton();
         jLabelTitle = new javax.swing.JLabel();
@@ -161,10 +166,11 @@ public class MainJFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 79;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(115, 1, 0, 1);
+        gridBagConstraints.insets = new java.awt.Insets(117, 3, 0, 37);
         jPanel1Modify.add(jButtonThemMoi, gridBagConstraints);
 
         jButtonChinhSua.setBackground(new java.awt.Color(248, 249, 248));
@@ -179,10 +185,10 @@ public class MainJFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 73;
+        gridBagConstraints.ipadx = 71;
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 1, 0, 1);
+        gridBagConstraints.insets = new java.awt.Insets(18, 3, 0, 0);
         jPanel1Modify.add(jButtonChinhSua, gridBagConstraints);
 
         jButtonXoa.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -195,11 +201,47 @@ public class MainJFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 111;
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 1, 210, 1);
+        gridBagConstraints.insets = new java.awt.Insets(18, 3, 0, 37);
         jPanel1Modify.add(jButtonXoa, gridBagConstraints);
+
+        jButtonXoa1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jButtonXoa1.setText("Đăng ký");
+        jButtonXoa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonXoa1ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 79;
+        gridBagConstraints.ipady = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 3, 0, 37);
+        jPanel1Modify.add(jButtonXoa1, gridBagConstraints);
+
+        jBtDangKu.setBackground(new java.awt.Color(4, 174, 1));
+        jBtDangKu.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jBtDangKu.setText("Đăng Ký");
+        jBtDangKu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDangKuActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 75;
+        gridBagConstraints.ipady = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 3, 161, 37);
+        jPanel1Modify.add(jBtDangKu, gridBagConstraints);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridBagLayout());
@@ -230,7 +272,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelTableLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1018, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
                         .addGap(37, 37, 37))
                     .addGroup(jPanelTableLayout.createSequentialGroup()
                         .addComponent(jScrollPane1)
@@ -282,7 +324,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jButtonThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemMoiActionPerformed
         // TODO add your handling code here:
         ii++;
-        jTableData.setValueAt(String.valueOf(ii), 0, 0);
+        //jTableData.setValueAt(String.valueOf(ii), 0, 0);
         addNewDeviceGUI.iStatus = 0;
         addNewDeviceGUI.clearText();
         addNewDeviceGUI.setVisible(true);
@@ -375,7 +417,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 boolean b = sheetAPI.deleteRowInSheet(jTableData.getValueAt(row, 1).toString());
                 if (!b) {
                     JOptionPane.showMessageDialog(null, "Chọn hàng cần xóa", "Error", JOptionPane.ERROR_MESSAGE);
-                }              
+                }
             } catch (GeneralSecurityException | IOException ex) {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -383,6 +425,39 @@ public class MainJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Chọn một hàng để chỉnh sữa ", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonXoaActionPerformed
+
+    private void jButtonXoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXoa1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonXoa1ActionPerformed
+
+    private void jBtDangKuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDangKuActionPerformed
+
+        int row = jTableData.getSelectedRow();
+        int col = jTableData.getSelectedColumnCount();
+        System.out.println("selected row: " + String.valueOf(row)
+                + "  selected col: " + String.valueOf(col));
+        if (row != -1 && col != -1) {
+            String s = "";
+            for (int i = 0; i < 8; i++) {
+                s = jTableData.getValueAt(row, i).toString();
+                System.out.println("row: " + String.valueOf(i) + "=" + s);
+            }
+            //setContentInfo();
+            bookDeviceGUI.setContentInfo(jTableData.getValueAt(row, 1).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 2).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 3).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 4).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 5).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 6).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 7).toString().replace("\n", ","),
+                    jTableData.getValueAt(row, 8).toString().replace("\n", ","));
+            bookDeviceGUI.setVisible(true);
+            //System.out.print(s.replace("/n", ""));
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn thiết bị cần đăng ký !", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtDangKuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -420,10 +495,12 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtDangKu;
     private javax.swing.JButton jButtonChinhSua;
     private javax.swing.JButton jButtonReload;
     private javax.swing.JButton jButtonThemMoi;
     private javax.swing.JButton jButtonXoa;
+    private javax.swing.JButton jButtonXoa1;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel1Modify;
@@ -457,13 +534,13 @@ public class MainJFrame extends javax.swing.JFrame {
                 new Object[][]{
                     {}
                 },
-                new Object[]{"ID", "Ma Thiet Bi",
-                    "Tên thiết bị;\nsố lượng;\nSố seri/model\nHãng/nước sx",
-                    "Ngày sx;\nNguyên giá;\nCty nhập",
+                new Object[]{"STT", "Mã Thiết Bị",
+                    "Tên Thiết Bị;\nSố Lượng;\nSố Seri/Mode; Hãng; Nước SX",
+                    "Ngày SX;\nNguyên giá;\nCty nhập\n",
                     "Tình trạng\nhoạt động",
-                    "Đơn vị  mượn;\nNgày mượn",
-                    "Ngày trả",
-                    "Lịch sử di chuyển", "Hiện tại"});
+                    "Đơn Vị Mượn;\nNgày mượn",
+                    "Ngày Trả",
+                    "Lịch sử di chuyển", "Vị Trí Hiện tại"});
 
         jTableData.setModel(dm);
 
@@ -472,15 +549,18 @@ public class MainJFrame extends javax.swing.JFrame {
         while (e.hasMoreElements()) {
             ((TableColumn) e.nextElement()).setHeaderRenderer(renderer);
         }
+        // debug
+        System.out.println("X TB: " + String.valueOf(jTableData.getWidth()));
+        System.out.println("Y TB: " + String.valueOf(jTableData.getHeight()));
 
         jTableData.getColumnModel().getColumn(0).setPreferredWidth(5);
-        jTableData.getColumnModel().getColumn(1).setPreferredWidth(100);
-        jTableData.getColumnModel().getColumn(2).setPreferredWidth(350);
-        jTableData.getColumnModel().getColumn(3).setPreferredWidth(200);
-        jTableData.getColumnModel().getColumn(4).setPreferredWidth(90);
-        jTableData.getColumnModel().getColumn(5).setPreferredWidth(200);
-        jTableData.getColumnModel().getColumn(6).setPreferredWidth(150);
-        jTableData.getColumnModel().getColumn(7).setPreferredWidth(270);
+        jTableData.getColumnModel().getColumn(1).setPreferredWidth(60);
+        jTableData.getColumnModel().getColumn(2).setPreferredWidth(150);
+        jTableData.getColumnModel().getColumn(3).setPreferredWidth(150);
+        jTableData.getColumnModel().getColumn(4).setPreferredWidth(60);
+        jTableData.getColumnModel().getColumn(5).setPreferredWidth(150);
+        jTableData.getColumnModel().getColumn(6).setPreferredWidth(100);
+        jTableData.getColumnModel().getColumn(7).setPreferredWidth(150);
         jTableData.getColumnModel().getColumn(8).setPreferredWidth(150);
         jTableData.setDefaultRenderer(String.class, new MultiLineTableCellRenderer());
         TableRowSorter<? extends TableModel> sort = new TableRowSorter<DefaultTableModel>(dm);
@@ -505,12 +585,45 @@ public class MainJFrame extends javax.swing.JFrame {
         jTableData.setValueAt(ht, row, 8);
     }
 
+    private void reloadData() {
+        try {
+            clearAllRow();
+            SheetsQuickstart quickstart = new SheetsQuickstart();
+            try {
+                quickstart = new SheetsQuickstart();
+            } catch (GeneralSecurityException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            List<Fields> lField = quickstart.getDeviceInformation();
+            for (Fields f : lField) {
+                setRowDataToTable(y, f.getMTB(),
+                        f.getField1(),
+                        f.getField2(),
+                        f.getField3(),
+                        f.getField4(),
+                        f.getField5(),
+                        f.getField6(),
+                        f.getField7(),
+                        f.getField8());
+                y++;
+            }
+        } catch (GeneralSecurityException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void reloadJTable() {
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(new Runnable() {
+            private int k = 0;
+
             @Override
             public void run() {
-                System.out.println("----------------");
+                System.out.println("---------------- " + String.valueOf(addNewDeviceGUI.iStatus) + "  " + String.valueOf(k));
                 if (addNewDeviceGUI.iStatus == 1) {
                     System.out.println("---- 123213213213213 -------");
                     System.out.println("--Name: " + addNewDeviceGUI.getContent().getName_seri().toString());
@@ -518,7 +631,9 @@ public class MainJFrame extends javax.swing.JFrame {
                     System.out.println("--TinhTrang: " + addNewDeviceGUI.getContent().getTinhTrang().toString());
                     System.out.println("--Code: " + addNewDeviceGUI.getContent().getCode().toString());
 
-                    setRowDataToTable(iRow, String.valueOf(iRow + 1),
+                    int lastRow = jTableData.getRowCount();
+                    System.out.println("LastRow: " + String.valueOf(lastRow));
+                    setRowDataToTable(lastRow + 1, String.valueOf(lastRow + 1),
                             addNewDeviceGUI.getContent().getCode().toString(),
                             addNewDeviceGUI.getContent().getName_seri().toString().replace("; ", "\n"),
                             addNewDeviceGUI.getContent().getNgaySX().toString().replace("; ", "\n"),
@@ -527,7 +642,7 @@ public class MainJFrame extends javax.swing.JFrame {
                             "Khong",
                             "Khong",
                             "Trong Kho");
-                    iRow++;
+                    repaint();
                     executorService.shutdown();
                 } else if (addNewDeviceGUI.iStatus == -1) {
                     System.out.println("---- Khong lam gi ca FALSE -----------");

@@ -46,9 +46,17 @@ public class EditDeviceGUI extends javax.swing.JFrame {
         jTextTinhTrang.setText("");
         jText_Ten.setText("");
     }
-    
+    private String old_jTextFieldMaTB;
+    private String old_jText_Ten;
+    private String old_jTextNgaySX;
+    private String old_jTextTinhTrang;
+    private String old_jTextFieldNgayTra;
+    private String old_jTextFieldLSDC;
+    private String old_jTextFieldHienTai;
+    private String old_jTextDVM;
+
     public void setContentInfo(String MTB, String TTTB, String NSX, String TTHD,
-                    String BR, String RT, String LSDC, String POS){
+            String BR, String RT, String LSDC, String POS) {
         jTextFieldMaTB.setText(MTB);
         jText_Ten.setText(TTTB);
         jTextNgaySX.setText(NSX);
@@ -57,6 +65,15 @@ public class EditDeviceGUI extends javax.swing.JFrame {
         jTextFieldNgayTra.setText(RT);
         jTextFieldLSDC.setText(LSDC);
         jTextFieldHienTai.setText(POS);
+
+        old_jTextFieldMaTB = jTextFieldMaTB.getText();
+        old_jText_Ten = jText_Ten.getText();
+        old_jTextNgaySX = jTextNgaySX.getText();
+        old_jTextTinhTrang = jTextTinhTrang.getText();
+        old_jTextDVM = jTextDVM.getText();
+        old_jTextFieldNgayTra = jTextFieldNgayTra.getText();
+        old_jTextFieldLSDC = jTextFieldLSDC.getText();
+        old_jTextFieldHienTai = jTextFieldHienTai.getText();
     }
 
     public ThemThietBiMoi getContent() {
@@ -296,8 +313,9 @@ public class EditDeviceGUI extends javax.swing.JFrame {
                     iStatus = 1;
                     System.out.println("Tao da click Chap Nhan");
                     //setContent(jText_Ten.getText(), jTextNgaySX.getText(), jTextTinhTrang.getText(), jTextCode.getText());
-                    
+
                     SheetsQuickstart sheetAPI = new SheetsQuickstart();
+                    sheetAPI.getContentOld(old_jTextDVM, old_jText_Ten, old_jTextDVM, old_jTextDVM, old_jTextDVM, old_jTextDVM, old_jTextDVM, old_jTextDVM);
                     String sName1 = jText_Ten.getText().replace(",", "\n");
                     String sName2 = jTextNgaySX.getText().replace(",", "\n");
                     String sName3 = jTextTinhTrang.getText().replace(",", "\n");
@@ -307,13 +325,12 @@ public class EditDeviceGUI extends javax.swing.JFrame {
                     String sName7 = jTextFieldHienTai.getText().replace(",", "\n");
                     String sName8 = jTextFieldMaTB.getText().replace(",", "\n");
                     
-                    boolean b =  sheetAPI.editInformationOnSheet(sName8,
+                    boolean b = sheetAPI.editInformationOnSheet(sName8,
                             sName1, sName2, sName3, sName4, sName5, sName6,
                             sName7, "");
-                    if(!b){
+                    if (!b) {
                         JOptionPane.showMessageDialog(null, "Không tìm thấy mã thiết bị", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    else{
+                    } else {
                         dispose();
                     }
                     //

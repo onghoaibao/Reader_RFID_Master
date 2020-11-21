@@ -1,6 +1,8 @@
 package GUI;
 
+import GUI.*;
 import DataBase.RequestGETDataBase;
+import DataBase.SheetsQuickstart;
 import DataBase.SheetsQuickstart;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,7 @@ import java.net.MalformedURLException;
 import java.security.GeneralSecurityException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import reader_rfid.ThemThietBiMoi;
 
@@ -21,7 +24,7 @@ import reader_rfid.ThemThietBiMoi;
  *
  * @author ohbao
  */
-public class AddNewDeviceGUI extends javax.swing.JFrame {
+public class BookDeviceGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form ThemMoi
@@ -29,27 +32,42 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
     private ThemThietBiMoi a = new ThemThietBiMoi();
     public int iStatus = 0;
 
-    public AddNewDeviceGUI() {
-        iStatus = 0;
+    
+
+    public BookDeviceGUI() {
         initComponents();
         eventWindowClose();
         getContentPane().setBackground(new Color(45, 211, 50));
+
+        jTextFieldMaTB.setEditable(false);
+        jText_Ten.setEditable(false);
+        jTextNgaySX.setEditable(false);
+        jTextTinhTrang.setEditable(false);
+        jTextFieldNgayTra.setEditable(false);
+        jTextFieldLSDC.setEditable(false);
+        jTextFieldHienTai.setEditable(false);
+
         eventButtonChapNhan();
         eventButtonHuyBo();
     }
 
-    public void setContent(String name_seri, String ngaySX, String tinhTrang, String Code) {
-        a.setCode(Code);
-        a.setName_seri(name_seri);
-        a.setNgaySX(ngaySX);
-        a.setTinhTrang(tinhTrang);
-    }
-
     public void clearText() {
-        jTextCode.setText("");
+        jTextDVM.setText("");
         jTextNgaySX.setText("");
         jTextTinhTrang.setText("");
         jText_Ten.setText("");
+    }
+
+    public void setContentInfo(String MTB, String TTTB, String NSX, String TTHD,
+            String BR, String RT, String LSDC, String POS) {
+        jTextFieldMaTB.setText(MTB);
+        jText_Ten.setText(TTTB);
+        jTextNgaySX.setText(NSX);
+        jTextTinhTrang.setText(TTHD);
+        jTextDVM.setText(BR);
+        jTextFieldNgayTra.setText(RT);
+        jTextFieldLSDC.setText(LSDC);
+        jTextFieldHienTai.setText(POS);
     }
 
     public ThemThietBiMoi getContent() {
@@ -71,11 +89,19 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButtonChapNhan = new javax.swing.JButton();
         jButtonHuyBo = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
+        jLabelDVM = new javax.swing.JLabel();
         jText_Ten = new javax.swing.JTextField();
         jTextNgaySX = new javax.swing.JTextField();
         jTextTinhTrang = new javax.swing.JTextField();
-        jTextCode = new javax.swing.JTextField();
+        jTextDVM = new javax.swing.JTextField();
+        jLabelNgayTra = new javax.swing.JLabel();
+        jTextFieldNgayTra = new javax.swing.JTextField();
+        jLabelLSDC = new javax.swing.JLabel();
+        jTextFieldLSDC = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldHienTai = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldMaTB = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 204, 0));
@@ -86,7 +112,7 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 1, 1));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Nhập Thiết Bị Mới Vào Kho");
+        jLabel1.setText("Đăng ký mượn thiết bị");
         jLabel1.setToolTipText("");
         jLabel1.setAutoscrolls(true);
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -108,6 +134,11 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
 
         jButtonChapNhan.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jButtonChapNhan.setText("Chấp nhận");
+        jButtonChapNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonChapNhanActionPerformed(evt);
+            }
+        });
 
         jButtonHuyBo.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jButtonHuyBo.setText("Hủy bỏ");
@@ -117,9 +148,9 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel9.setText("Mã thiết bị");
+        jLabelDVM.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelDVM.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabelDVM.setText("Đơn vi mượn, Ngày mượn");
 
         jText_Ten.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
@@ -132,12 +163,32 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
 
         jTextTinhTrang.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        jTextCode.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        jTextCode.addActionListener(new java.awt.event.ActionListener() {
+        jTextDVM.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jTextDVM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextCodeActionPerformed(evt);
+                jTextDVMActionPerformed(evt);
             }
         });
+
+        jLabelNgayTra.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabelNgayTra.setText("Ngày trả");
+
+        jTextFieldNgayTra.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        jLabelLSDC.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabelLSDC.setText("Lịch sử di chuyển");
+
+        jTextFieldLSDC.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setText("Vi trí hiện tại");
+
+        jTextFieldHienTai.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel6.setText("Mã thiết bị");
+
+        jTextFieldMaTB.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,22 +200,36 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelNgayTra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jText_Ten)
-                            .addComponent(jTextNgaySX)
-                            .addComponent(jTextTinhTrang)
-                            .addComponent(jTextCode)))
+                            .addComponent(jLabelDVM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelLSDC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                                    .addComponent(jText_Ten)
+                                    .addComponent(jTextNgaySX)
+                                    .addComponent(jTextTinhTrang)
+                                    .addComponent(jTextDVM)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldNgayTra)
+                                    .addComponent(jTextFieldLSDC)
+                                    .addComponent(jTextFieldHienTai)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButtonChapNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(79, 79, 79)
+                                        .addComponent(jButtonHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 488, Short.MAX_VALUE))
+                                    .addComponent(jTextFieldMaTB)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(545, 545, 545)
-                        .addComponent(jButtonChapNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84)
-                        .addComponent(jButtonHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 483, Short.MAX_VALUE)))
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -186,13 +251,31 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
                     .addComponent(jTextTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                    .addComponent(jLabelDVM, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextDVM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelNgayTra, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNgayTra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelLSDC, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextFieldLSDC, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldHienTai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMaTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButtonChapNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(66, 66, 66))
+                .addGap(77, 77, 77))
         );
 
         pack();
@@ -200,7 +283,7 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
 
     private void jButtonHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHuyBoActionPerformed
         // TODO add your handling code here:
-        setContent("", "", "", "");
+        //setContent("", "", "", "");
         dispose();
     }//GEN-LAST:event_jButtonHuyBoActionPerformed
 
@@ -208,9 +291,13 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextNgaySXActionPerformed
 
-    private void jTextCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCodeActionPerformed
+    private void jTextDVMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDVMActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextCodeActionPerformed
+    }//GEN-LAST:event_jTextDVMActionPerformed
+
+    private void jButtonChapNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChapNhanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonChapNhanActionPerformed
 
     private void eventButtonChapNhan() {
         jButtonChapNhan.addActionListener(new ActionListener() {
@@ -220,25 +307,32 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
                     iStatus = 1;
                     System.out.println("Tao da click Chap Nhan");
                     //setContent(jText_Ten.getText(), jTextNgaySX.getText(), jTextTinhTrang.getText(), jTextCode.getText());
-                    SheetsQuickstart sheetAPI = new SheetsQuickstart();
-                    String sName1 = jText_Ten.getText().replace(", ", "\n");
-                           sName1 = sName1.replace(",", "\n");
-                    String sName2 = jTextNgaySX.getText().replace(", ", "\n");
-                           sName2 = sName2.replace(",", "\n");
-                    String sName3 = jTextTinhTrang.getText().replace(", ", "\n");
-                           sName3 = sName3.replace(",", "\n");
-                    setContent(jTextCode.getText(), sName1, sName2, sName3);
-                    sheetAPI.createNewItemOnSheet(jTextCode.getText(),
-                            sName1,
-                            sName2,
-                            sName3);
-                    dispose();
+
+                    SheetsQuickstart sheetAPI = new SheetsQuickstart();                    
+                    String sName1 = jText_Ten.getText().replace(",", "\n");
+                    String sName2 = jTextNgaySX.getText().replace(",", "\n");
+                    String sName3 = jTextTinhTrang.getText().replace(",", "\n");
+                    String sName4 = jTextDVM.getText().replace(",", "\n");
+                    String sName5 = jTextFieldNgayTra.getText().replace(",", "\n");
+                    String sName6 = jTextFieldLSDC.getText().replace(",", "\n");
+                    String sName7 = jTextFieldHienTai.getText().replace(",", "\n");
+                    String sName8 = jTextFieldMaTB.getText().replace(",", "\n");
+
+                    boolean b = sheetAPI.bookkingDeviceOnSheet(sName8,
+                            sName1, sName2, sName3, sName4, sName5, sName6,
+                            sName7, "");
+                    if (!b) {
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy mã thiết bị", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        dispose();
+                    }
+                    //
                 } catch (MalformedURLException ex) {
-                    Logger.getLogger(AddNewDeviceGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BookDeviceGUI.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (GeneralSecurityException ex) {
-                    Logger.getLogger(AddNewDeviceGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BookDeviceGUI.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(AddNewDeviceGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BookDeviceGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -287,8 +381,16 @@ public class AddNewDeviceGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextCode;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelDVM;
+    private javax.swing.JLabel jLabelLSDC;
+    private javax.swing.JLabel jLabelNgayTra;
+    private javax.swing.JTextField jTextDVM;
+    private javax.swing.JTextField jTextFieldHienTai;
+    private javax.swing.JTextField jTextFieldLSDC;
+    private javax.swing.JTextField jTextFieldMaTB;
+    private javax.swing.JTextField jTextFieldNgayTra;
     private javax.swing.JTextField jTextNgaySX;
     private javax.swing.JTextField jTextTinhTrang;
     private javax.swing.JTextField jText_Ten;

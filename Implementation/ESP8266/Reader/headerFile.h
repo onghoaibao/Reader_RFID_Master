@@ -8,6 +8,10 @@
 #include <FS.h>
 #include <EEPROM.h>
 #include <SoftwareSerial.h>
+<<<<<<< HEAD
+//#include <WiFiClientSecure.h>
+#include "HTTPSRedirect.h"
+=======
 #include <WiFiClientSecure.h>
 #include "HTTPSRedirect.h"
 
@@ -15,6 +19,7 @@
 String dataReader = "";
 long timeout = 0;
 bool st = false;
+>>>>>>> 51739e87d32bb54539b1557ff83b3ce071b6f19a
 
 // Init server and client
 ESP8266WebServer sv(9090);
@@ -31,10 +36,31 @@ ESP8266WebServer sv(9090);
 void serialFlush();
 String hexToASCII(unsigned long n);
 
-// Setup wifi and init thingspeak
+// declare variables for the google sheet
+const char* NAME_WIFI_ESP8266 = "ESP_Manage";
+const char* PASS_WIFI_ESP8266  = "123456789";
+
+String ssid =  "";
+String pass =  "";
+
+String bLogin = "";
+const char* __host__ = "script.google.com";
+const int __httpsPort__ = 443; 
+const char *GScriptId = "AKfycbw4HUZNWeNL7D15dxpteRobaDhXIFe0uNnH3abATzkXAl_aZz0";
+const char* fingerprint = "";
+String URL_HTTPS = String("/macros/s/") + GScriptId + "/exec?code=";
+String payload_base =  "{\"command\": \"appendRow\", \"sheet_name\": \"Sheet1\", \"values\": ";
+String payload = "";
+
 void setupWiFi();
 void handleClientServer();
+<<<<<<< HEAD
+void client_Sendata(String code);
+void initHTTPS();
+String getAllDeviveFromDataBase();
+=======
 void client_Sendata();
+>>>>>>> 51739e87d32bb54539b1557ff83b3ce071b6f19a
 String scanWifi();
 
 //
@@ -87,9 +113,15 @@ void sendMessage();
 
 // Reader RFID
 SoftwareSerial RFID(D2, D3); // RX, TX
+<<<<<<< HEAD
+void readDataRFID();
+void initReaderRFID();
+String hexToASCII(unsigned long n);
+=======
 void initReaderRFID();
 String getData();
 String hexToASCII(unsigned long n);
 void readDataRFID();
+>>>>>>> 51739e87d32bb54539b1557ff83b3ce071b6f19a
 
 #endif

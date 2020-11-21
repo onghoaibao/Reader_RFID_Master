@@ -69,7 +69,7 @@ public class MultiLineTableCellRenderer extends JTextArea
     }
     adjustRowHeight(table, row, column);
     setBorder(BorderFactory.createLineBorder(Color.BLACK));
-    setFont(new Font("Tahoma", Font.PLAIN, 16));
+    setFont(new Font("Tahoma", Font.PLAIN, 14));
     return this;
   }
 

@@ -41,7 +41,7 @@ public class MultiLineHeaderRenderer extends JList implements TableCellRenderer 
 
   public Component getTableCellRendererComponent(JTable table, Object value,
     boolean isSelected, boolean hasFocus, int row, int column) {
-    setFont(new Font("tahoma", Font.BOLD, 16));
+    setFont(new Font("Time news roman", Font.BOLD, 15));
     setBorder(BorderFactory.createLineBorder(Color.BLACK));
     String str = (value == null) ? "" : value.toString();
     BufferedReader br = new BufferedReader(new StringReader(str));
