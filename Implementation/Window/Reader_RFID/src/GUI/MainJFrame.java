@@ -112,7 +112,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jButtonThemMoi = new javax.swing.JButton();
         jButtonChinhSua = new javax.swing.JButton();
         jButtonXoa = new javax.swing.JButton();
-        jButtonXoa1 = new javax.swing.JButton();
         jBtDangKu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jButtonReload = new javax.swing.JButton();
@@ -166,11 +165,10 @@ public class MainJFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 79;
+        gridBagConstraints.ipadx = 44;
         gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(117, 3, 0, 37);
+        gridBagConstraints.insets = new java.awt.Insets(118, 11, 0, 21);
         jPanel1Modify.add(jButtonThemMoi, gridBagConstraints);
 
         jButtonChinhSua.setBackground(new java.awt.Color(248, 249, 248));
@@ -185,10 +183,10 @@ public class MainJFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 71;
+        gridBagConstraints.ipadx = 38;
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 3, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(18, 11, 0, 21);
         jPanel1Modify.add(jButtonChinhSua, gridBagConstraints);
 
         jButtonXoa.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -201,29 +199,11 @@ public class MainJFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 111;
+        gridBagConstraints.ipadx = 76;
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 3, 0, 37);
+        gridBagConstraints.insets = new java.awt.Insets(18, 11, 0, 21);
         jPanel1Modify.add(jButtonXoa, gridBagConstraints);
-
-        jButtonXoa1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jButtonXoa1.setText("Đăng ký");
-        jButtonXoa1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonXoa1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 79;
-        gridBagConstraints.ipady = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 3, 0, 37);
-        jPanel1Modify.add(jButtonXoa1, gridBagConstraints);
 
         jBtDangKu.setBackground(new java.awt.Color(4, 174, 1));
         jBtDangKu.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -236,11 +216,10 @@ public class MainJFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 75;
+        gridBagConstraints.ipadx = 40;
         gridBagConstraints.ipady = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 3, 161, 37);
+        gridBagConstraints.insets = new java.awt.Insets(18, 11, 162, 21);
         jPanel1Modify.add(jBtDangKu, gridBagConstraints);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -272,7 +251,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelTableLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1023, Short.MAX_VALUE)
                         .addGap(37, 37, 37))
                     .addGroup(jPanelTableLayout.createSequentialGroup()
                         .addComponent(jScrollPane1)
@@ -426,10 +405,6 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonXoaActionPerformed
 
-    private void jButtonXoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXoa1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonXoa1ActionPerformed
-
     private void jBtDangKuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDangKuActionPerformed
 
         int row = jTableData.getSelectedRow();
@@ -500,7 +475,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonReload;
     private javax.swing.JButton jButtonThemMoi;
     private javax.swing.JButton jButtonXoa;
-    private javax.swing.JButton jButtonXoa1;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel1Modify;
